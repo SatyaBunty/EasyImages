@@ -8,7 +8,7 @@ import HomePage from "../Home/HomePage";
 const MainPage = (props) => {
     return (
       <BrowserRouter>
-      <Header />
+      {/* <Header /> */}
       {/* <Route path="/"><HomePage /></Route> */}
       <Route exact path="/">
         <Redirect to="/home" />

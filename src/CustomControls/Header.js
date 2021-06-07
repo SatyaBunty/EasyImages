@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Link, useHistory } from 'react-router-dom'
 
 const Header = (props) => {
@@ -11,7 +10,8 @@ const Header = (props) => {
            width:"100%",
            float:"left",
            backgroundColor: "DodgerBlue",
-           padding: "10px",
+           padding: "0px",
+           margin: "0px",
             color: "white",
             fontFamily: "Arial"
            },

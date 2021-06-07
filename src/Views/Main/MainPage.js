@@ -7,6 +7,7 @@ import HomePage from "../Home/HomePage";
 
 const MainPage = (props) => {
     return (
+      <div>
       <BrowserRouter>
       {/* <Header /> */}
       {/* <Route path="/"><HomePage /></Route> */}
@@ -18,6 +19,7 @@ const MainPage = (props) => {
       <Route path="/contact"><ContactPage /></Route>
       {/* <HomePage /> */}
       </BrowserRouter>
+      </div>
     );
   }
 

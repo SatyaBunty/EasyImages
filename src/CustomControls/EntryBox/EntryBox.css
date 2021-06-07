@@ -1,0 +1,90 @@
+.entryLabels
+{
+    width: 50%;
+    height: 15px;
+    min-height: 5px;
+    float: left;
+    text-align: start;
+}
+.inputLabelDiv
+{
+    width: 100%;
+    height: 15px;
+    /* display: inline-block; */
+    /* clear: both; */
+    /* background-color: green; */
+}
+
+.entries
+{
+    width: 99%;
+    height: 30px;
+    min-height: 10px;
+    outline: none;/*to remove glowing border on focus/click*/
+    /* border: none; */
+    /* background-color: transparent; */
+    border-width: 0px;
+    border-bottom-width: 1px;
+    border-bottom-color: maroon;
+}
+.inputTextPassDiv
+{
+    width: 100%;
+    height: 15px;
+    /* display: inline-block; */
+    /* clear: both; */
+    /* background-color: green; */
+}
+
+.inputDiv
+{
+    width: calc(100% - 40px - 40px);/*total - margin - padding*/
+    height: 60px;
+    /* display: inline-block; */
+    /* clear: both; */
+    /*border: magenta; */
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-color: gray;
+    border-style: solid;/*very important line to show border colors else borders wont be visible*/
+    border-width: 1px;
+    border-radius: 10px;
+    background-color: white;
+    margin-left: 20px;
+    margin-right: 20px;
+    /* background-color: green; */
+}
+
+.brHeight {
+    height: 10px;
+}
+
+@media only screen and (min-width: 481px) {
+    /* For Desktops and Tablets: */
+    
+}
+@media only screen and (max-width: 480px) {
+    /* For mobiles: */
+    .inputDiv
+    {
+    width: calc(100% - 20px - 20px);/*total - margin - padding*/
+    height: 60px;
+    /* display: inline-block; */
+    /* clear: both; */
+    /*border: magenta; */
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-color: gray;
+    border-style: solid;/*very important line to show border colors else borders wont be visible*/
+    border-width: 1px;
+    border-radius: 10px;
+    background-color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+    /* background-color: green; */
+}
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../../CustomControls/Button/Button';
+import CustomButton from '../../CustomControls/CustomButton/CustomButton';
 import EntryBox from '../../CustomControls/EntryBox/EntryBox';
 import Header from '../../CustomControls/Header';
 import "./../ViewBody.css";
@@ -41,7 +41,7 @@ const AboutPage = (props) => {
             {/* <form method="post" action="" name="singleURLForm" onsubmit="AccessSingleURLData(); return false;"> */}
                <form method="post" action="" name="singleURLForm" onsubmit="return false;">
                <EntryBox id="hehe" labelText="Name" hintText="Enter Name" isRequired={true} />
-               <Button Title="Submit"/>
+               <CustomButton Title="Submit"/>
                </form>
                {/* {AddTextField("sdsdsd","asdada","asdada")} */}
             </div>

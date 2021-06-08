@@ -4,6 +4,7 @@ import Header from "../../CustomControls/Header";
 import AboutPage from "../About/AboutPage";
 import ContactPage from "../Contact/ContactPage";
 import HomePage from "../Home/HomePage";
+import LoginPage from "../User/Login/LoginPage";
 import "./../ViewBody.css";
 
 const MainPage = (props) => {
@@ -18,6 +19,7 @@ const MainPage = (props) => {
       <Route path="/home"><HomePage /></Route>
       <Route path="/about"><AboutPage /></Route>
       <Route path="/contact"><ContactPage /></Route>
+      <Route path="/login"><LoginPage /></Route>
       {/* <HomePage /> */}
       </BrowserRouter>
       </div>

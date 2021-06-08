@@ -6,12 +6,14 @@ const FormData = (props) => {
         name,
         method,
         action,
-        // onSubmit,
+        onSubmit,
     } = props;
 
     const mySubmitHandler = (event) =>{
         event.preventDefault();
-        onsubmit();
+        if(onSubmit !== null && onSubmit !== undefined){
+            onsubmit(event);
+        }
     }
 
     let _method = method;
@@ -28,14 +30,8 @@ const FormData = (props) => {
     if(_name !== null && _name !== undefined && _name !== ""){} else{
         _name = "";
     }
-    
-    // let _onSubmit = onSubmit;
-    // if(_onSubmit !== null && _onSubmit !== undefined && _onSubmit !== ""){} else{
-    //     _onSubmit = "return false";
-    // }
-
       return (
-        <form name={_name} method={_method} onSubmit={mySubmitHandler} action={action}>
+        <form name={_name} method={_method} onSubmit={onSubmit} action={action}>
             {/* <form method="post" action="" name="singleURLForm" onsubmit="AccessSingleURLData(); return false;"> */}
             {props.children}
         </form>

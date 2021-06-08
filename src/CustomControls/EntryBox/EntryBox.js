@@ -4,6 +4,7 @@ import "./EntryBox.css";
 const EntryBox = (props) => {
     const {
         id,
+        name,
         hintText,
         labelText,
         isRequired,
@@ -18,7 +19,7 @@ const EntryBox = (props) => {
         </div>
         <div class="inputTextPassDiv">
             {/* <tr> */}
-                <input type="text" id={id} placeholder={hintText} onChange={onChange} name="itemId" class="entries" isRequired={isRequired}/>
+                <input type="text" id={id} name={name} placeholder={hintText} onChange={onChange} name="itemId" class="entries" isRequired={isRequired}/>
             {/* </tr> */}
         </div>
     {/* <div class="brHeight" ></div> */}

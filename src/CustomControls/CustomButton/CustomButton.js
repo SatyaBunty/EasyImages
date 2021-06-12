@@ -14,7 +14,7 @@ const CustomButton = (props) => {
         _className = "submitButton"
     }
       return (
-        <div class="inputButtonDiv">
+        <div className="inputButtonDiv">
             {
                 (isInputButton) ? 
                 <input type="submit" name={name} value={title} className={_className}/>

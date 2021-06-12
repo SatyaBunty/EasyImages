@@ -1,7 +1,7 @@
 import React from 'react';
 import CustomButton from '../../CustomControls/CustomButton/CustomButton';
 import EntryBox from '../../CustomControls/EntryBox/EntryBox';
-import Header from '../../CustomControls/Header';
+import Header from '../../CustomControls/Header_Body/Header';
 import "./../ViewBody.css";
 
 const AboutPage = (props) => {

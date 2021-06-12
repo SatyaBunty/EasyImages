@@ -9,12 +9,12 @@ const FormData = (props) => {
         onSubmit,
     } = props;
 
-    const mySubmitHandler = (event) =>{
-        event.preventDefault();
-        if(onSubmit !== null && onSubmit !== undefined){
-            onsubmit(event);
-        }
-    }
+    // const mySubmitHandler = (event) =>{
+    //     event.preventDefault();
+    //     if(onSubmit !== null && onSubmit !== undefined){
+    //         onsubmit(event);
+    //     }
+    // }
 
     let _method = method;
     if(_method !== null && _method !== undefined && _method !== ""){} else{

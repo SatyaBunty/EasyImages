@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router'
 import CustomButton from '../../CustomControls/CustomButton/CustomButton';
-import Header from '../../CustomControls/Header';
+import Header from '../../CustomControls/Header_Body/Header';
 import "./../ViewBody.css";
 
 

@@ -1,0 +1,48 @@
+.headerBackgroundStyle2 {
+    height: 7%;
+    width: 100%;
+    /* //  float:left; */
+    background-color: DodgerBlue;
+    padding: 0px;
+    margin: 0px;
+    color: white;
+    font-family: Arial;
+    position: absolute
+}
+
+.headerBackgroundStyle {
+    height: 7%;
+    width: 100%;
+    /* //  float:left; */
+    background-color: DodgerBlue;
+    padding: 0px;
+    margin: 0px;
+    color: white;
+    font-family: Arial;
+}
+
+.LeftButtonsHolderStyle {
+    float: left;
+    height: 100%;
+}
+
+.RightButtonsHolderStyle {
+    float: right;
+    height: 100%;
+}
+
+.LeftButtonStyle {
+    height: 100%;
+    background-color: indianred;
+    border: none;
+    outline: none;
+}
+
+.RightButtonStyle {
+    /* // alignSelf:right; */
+    /* // direction: ltr */
+    height: 100%;
+    background-color: indianred;
+    border: none;
+    outline: none;
+}

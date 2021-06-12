@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../../CustomControls/Header';
+import Header from '../../CustomControls/Header_Body/Header';
 import "./../ViewBody.css";
 
 const ContactPage = (props) => {

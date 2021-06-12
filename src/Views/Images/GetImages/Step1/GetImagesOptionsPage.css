@@ -1,0 +1,7 @@
+
+.bodyHolder{
+    height: 92%/*calc(93%-10px)*/;
+    margin-top: 10px;
+    white-space: nowrap;
+    overflow-y: scroll;
+}

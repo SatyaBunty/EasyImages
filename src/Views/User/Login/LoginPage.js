@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import CustomButton from '../../../CustomControls/CustomButton/CustomButton';
 import EntryBox from '../../../CustomControls/EntryBox/EntryBox';
 import FormData from '../../../CustomControls/FormData/FormData';
-import Header from './../../../CustomControls/Header';
+import Header from '../../../CustomControls/Header_Body/Header';
 import "./LoginPage.css";
 
 const LoginPage = (props) => {

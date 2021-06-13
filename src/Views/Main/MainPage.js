@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
-import Header from "../../CustomControls/Header_Body/Header";
 import AboutPage from "../About/AboutPage";
 import ContactPage from "../Contact/ContactPage";
 import HomePage from "../Home/HomePage";

@@ -8,7 +8,7 @@ const EntryBox = (props) => {
         hintText,
         labelText,
         type,
-        isRequired,
+        // isRequired,
         onChange,
     } = props;
     let _type = "text"

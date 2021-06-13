@@ -5,9 +5,9 @@ const Picker = (props) => {
     const {
         id,
         name,
-        hintText,
+        // hintText,
         labelText,
-        isRequired,
+        // isRequired,
         children,
         onChange,
     } = props;

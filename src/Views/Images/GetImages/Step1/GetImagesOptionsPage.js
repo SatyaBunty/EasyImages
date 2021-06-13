@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import CustomButton from '../../../../CustomControls/CustomButton/CustomButton';
 import EntryBox from '../../../../CustomControls/EntryBox/EntryBox';
 import FormData from '../../../../CustomControls/FormData/FormData';
@@ -6,32 +7,28 @@ import Header from '../../../../CustomControls/Header_Body/Header';
 import PageBody from '../../../../CustomControls/Header_Body/PageBody';
 import Picker from '../../../../CustomControls/Picker/Picker';
 import "./GetImagesOptionsPage.css";
+import { options, imageTypeOptions, zeroIndexOptions } from './../../../../Constants/EnumConstants';
+import { updateImagesData, submitGetImagesData } from '../GetImagesActions';
 
-const GetImagesOptionsPage = (props) => {
-   const options = Object.freeze({
-      unSelected: "null",
-      LocalImages: "Access Local Images",
-      PersonalImages: "Access Personal Images",
-      NonComplexUrl: "I have a non Complex URL"
-   });
-   const imageTypeOptions = Object.freeze({
-      JPG: "jpg",
-      JPEG: "jpeg",
-      PNG: "png"
-   });
-   const zeroIndexOptions = Object.freeze({
-      YES: "yes",
-      NO: "no",
-   });
-
+const GetImagesOptions_Page = (props) => {
    const [selectedOption, changeSelectedOption] = useState(options.unSelected);
-   const [imageData, changeImageData] = useState({
-      imageType: imageTypeOptions.JPG,
-      isZeroIndexed: zeroIndexOptions.YES,
-      imageURL: "",
-      startIndex: "0",
-      endIndex: "100",
-   });
+   // const [imageData, changeImageData] = useState({
+   //    imageType: imageTypeOptions.JPG,
+   //    isZeroIndexed: zeroIndexOptions.YES,
+   //    imageURL: "",
+   //    startIndex: "0",
+   //    endIndex: "100",
+   // });
+
+   const {
+      dispatch,
+      imageData,
+      serviceState,
+      loaderVisibility,
+      message,
+   } = props;
+
+   console.log(props);
 
    const onOptionsSelected = (event) => {
       changeSelectedOption(event.target.value);
@@ -39,17 +36,20 @@ const GetImagesOptionsPage = (props) => {
 
    const onImageDataOptionsSelected = (event) => {
       let objectKey = (event.target.name);
-      changeImageData({ ...imageData, [objectKey]: event.target.value });
+      // changeImageData({ ...imageData, [objectKey]: event.target.value });
+      dispatch(updateImagesData({ ...imageData, [objectKey]: event.target.value }));
    }
 
    const onImageDataEntryValueChaned = (event) => {
       let objectKey = (event.target.name);
-      changeImageData({ ...imageData, [objectKey]: event.target.value });
+      // changeImageData({ ...imageData, [objectKey]: event.target.value });
+      dispatch(updateImagesData({ ...imageData, [objectKey]: event.target.value }));
    }
 
    const onSubmitOption = (event) => {
       event.preventDefault();
-      console.log(imageData);
+      // console.log(imageData);
+      dispatch(submitGetImagesData(imageData));
    }
 
    const entryOptionsDiv = (optionSelected) => {
@@ -107,4 +107,13 @@ const GetImagesOptionsPage = (props) => {
       </div>
    )
 }
+const mapToProps = (state) => {
+   console.log(state);
+   const {imageData, serviceState, loaderVisibility, message} = state.GetImagesReducer;
+   return {
+      imageData, serviceState, loaderVisibility, message
+   };
+};
+
+const GetImagesOptionsPage = connect(mapToProps)(GetImagesOptions_Page);
 export default GetImagesOptionsPage;

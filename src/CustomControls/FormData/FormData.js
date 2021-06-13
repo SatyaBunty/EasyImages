@@ -2,7 +2,7 @@ import React from 'react';
 
 const FormData = (props) => {
     const {
-        id,
+        // id,
         name,
         method,
         action,

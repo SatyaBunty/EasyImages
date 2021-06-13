@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import Loader from '../../../../CustomControls/Loader/Loader';
 import CustomButton from '../../../../CustomControls/CustomButton/CustomButton';
 import EntryBox from '../../../../CustomControls/EntryBox/EntryBox';
 import FormData from '../../../../CustomControls/FormData/FormData';
@@ -8,7 +9,7 @@ import PageBody from '../../../../CustomControls/Header_Body/PageBody';
 import Picker from '../../../../CustomControls/Picker/Picker';
 import "./GetImagesOptionsPage.css";
 import { options, imageTypeOptions, zeroIndexOptions } from './../../../../Constants/EnumConstants';
-import { updateImagesData, submitGetImagesData } from '../GetImagesActions';
+import { getUpdateImagesData, fetchSubmitGetImagesDataAction } from '../GetImagesActions';
 
 const GetImagesOptions_Page = (props) => {
    const [selectedOption, changeSelectedOption] = useState(options.unSelected);
@@ -37,25 +38,24 @@ const GetImagesOptions_Page = (props) => {
    const onImageDataOptionsSelected = (event) => {
       let objectKey = (event.target.name);
       // changeImageData({ ...imageData, [objectKey]: event.target.value });
-      dispatch(updateImagesData({ ...imageData, [objectKey]: event.target.value }));
+      dispatch(getUpdateImagesData({ ...imageData, [objectKey]: event.target.value }));
    }
 
    const onImageDataEntryValueChaned = (event) => {
       let objectKey = (event.target.name);
       // changeImageData({ ...imageData, [objectKey]: event.target.value });
-      dispatch(updateImagesData({ ...imageData, [objectKey]: event.target.value }));
+      dispatch(getUpdateImagesData({ ...imageData, [objectKey]: event.target.value }));
    }
 
    const onSubmitOption = (event) => {
       event.preventDefault();
       // console.log(imageData);
-      dispatch(submitGetImagesData(imageData));
+      dispatch(fetchSubmitGetImagesDataAction(imageData));
    }
 
    const entryOptionsDiv = (optionSelected) => {
       if (optionSelected === options.LocalImages) {
          return (<div>
-            <p>This is a local Image</p>
          </div>);
       } else if (optionSelected === options.PersonalImages) {
          return (<div>
@@ -85,6 +85,10 @@ const GetImagesOptions_Page = (props) => {
    return (
       <div className="mainHolder">
          <Header />
+         {(loaderVisibility) ?
+            <Loader /> :
+            <></>
+         }
          <PageBody className="bodyHolder">
             <div>
                <Picker labelText="Please select an option" onChange={onOptionsSelected}>
@@ -109,7 +113,7 @@ const GetImagesOptions_Page = (props) => {
 }
 const mapToProps = (state) => {
    console.log(state);
-   const {imageData, serviceState, loaderVisibility, message} = state.GetImagesReducer;
+   const { imageData, serviceState, loaderVisibility, message } = state.GetImagesReducer;
    return {
       imageData, serviceState, loaderVisibility, message
    };

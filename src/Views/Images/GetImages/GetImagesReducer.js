@@ -1,16 +1,16 @@
 import { imageTypeOptions, zeroIndexOptions } from '../../../Constants/EnumConstants';
 import {
-  // FAILURE,
-  // INACTIVE,
+  FAILURE,
+  INACTIVE,
   LOADING,
-  // SUCCESS,
+  SUCCESS,
 } from '../../../Constants/URLConstants';
 import {
   // GET_IMAGES_DATA,
-  UPDATE_IMAGES_DATA,
-  SUBMIT_GET_IMAGES_DATA,
-  // GET_YEARS_MONTHS_DETAILS_SUCCESS,
-  // GET_YEARS_MONTHS_DETAILS_FAILURE,
+  GET_UPDATE_IMAGES_DATA,
+  GET_SUBMIT_IMAGES_DATA,
+  GET_SUBMIT_IMAGES_DATA_SUCCESS,
+  GET_SUBMIT_IMAGES_DATA_FAILURE,
   // GET_YEARS_MONTHS_DETAILS_RESET,
 } from './GetImagesActions';
 
@@ -22,18 +22,30 @@ const initialState = {
     startIndex: "0",
     endIndex: "100"
   },
-  serviceState: LOADING,
+  serviceState: INACTIVE,
   loaderVisibility: false,
   message: '',
 };
 
 const GetImagesReducer = (state = initialState, action) => {
+  state = {
+    ...state,
+    serviceState: INACTIVE,
+    loaderVisibility: false,
+    message: '',
+  }
   switch (action.type) {
-    case UPDATE_IMAGES_DATA:
+    case GET_UPDATE_IMAGES_DATA:
       state = { ...state, imageData: action.payload };
       break;
-    case SUBMIT_GET_IMAGES_DATA:
-      state = { ...state, imageData: action.payload };
+    case GET_SUBMIT_IMAGES_DATA:
+      state = { ...state, serviceState: LOADING, loaderVisibility: true, message: "" };
+      break;
+    case GET_SUBMIT_IMAGES_DATA_SUCCESS:
+      state = { ...state, serviceState: SUCCESS, loaderVisibility: false, message: "" };
+      break;
+    case GET_SUBMIT_IMAGES_DATA_FAILURE:
+      state = { ...state, serviceState: FAILURE, loaderVisibility: false, message: "Unable to get the images from server" };
       break;
     default:
       state = { ...state };

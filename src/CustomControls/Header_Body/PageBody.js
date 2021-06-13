@@ -17,7 +17,7 @@ const PageBody = (props) => {
     } = props;
 
     const uiMain = (
-        <div style={uiStyles.mainBodyHolder}>
+        <div className="pageBody" style={uiStyles.mainBodyHolder}>
             {children}
         </div>
     );

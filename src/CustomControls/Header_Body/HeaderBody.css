@@ -7,7 +7,8 @@
     margin: 0px;
     color: white;
     font-family: Arial;
-    position: absolute
+    position: absolute;
+    z-index: 3;
 }
 
 .headerBackgroundStyle {

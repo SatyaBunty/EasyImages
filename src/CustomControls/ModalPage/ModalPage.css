@@ -1,0 +1,43 @@
+.closeButton{
+    height: 40px;
+    width: 40px;
+    float: right;
+}
+
+.modalChildrenHolderWithCloseButton{
+    height: calc(100% - 40px);
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* align-items: center; */
+}
+
+.modalChildrenHolderWithoutCloseButton{
+    height: 100%;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* align-items: center; */
+}
+
+.modalMainHolder{
+    height: 100%;
+    width: 100%;
+    background-color: #00000040;
+    /* background-color: yellow; */
+    position: absolute;
+    z-index: 5;
+    left: 0;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    /* padding: 50px; */
+    display: flex;
+    flex-direction: column;
+    /* align-items: stretch; */
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+/* .closeButtonHolder{} */

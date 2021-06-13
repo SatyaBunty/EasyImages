@@ -6,15 +6,22 @@ const CustomButton = (props) => {
         title,
         name,
         className,
+        buttonHolderclassName,
         isInputButton,
         onClick
     } = props;
+
+    var _buttonHolderclassName = buttonHolderclassName;
+    if(_buttonHolderclassName !== null && _buttonHolderclassName !== undefined && _buttonHolderclassName !== ""){} else{
+        _buttonHolderclassName = "inputButtonDiv"
+    }
     var _className = className;
     if(_className !== null && _className !== undefined && _className !== ""){} else{
         _className = "submitButton"
     }
+
       return (
-        <div className="inputButtonDiv">
+        <div className={_buttonHolderclassName}>
             {
                 (isInputButton) ? 
                 <input type="submit" name={name} value={title} className={_className}/>

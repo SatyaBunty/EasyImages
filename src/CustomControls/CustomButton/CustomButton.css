@@ -7,7 +7,7 @@
     color: forestgreen;
     padding: 0;/*16px 32px;*/
     text-decoration: none;
-    margin: 0;/*4px 2px;*/
+    /* margin: 0;4px 2px; */
     cursor: pointer;
     border-style: solid;
     border-width: 1px;
@@ -15,13 +15,15 @@
     border-radius: 5px;
     outline: none;/*to remove glowing border on focus/click*/
     /* height: 15px; */
+    padding-top: 10px;
+    padding-bottom: 10px;
     margin-left: 20px;
     margin-right: 20px;
 }
 .inputButtonDiv
 {
-    width: 100%;
-    height: 30px;
+    width: auto;
+    height: auto;
     min-height: 5px;
     /* display: inline-block; */
     /* clear: both; */

@@ -22,6 +22,7 @@ const initialState = {
     startIndex: "0",
     endIndex: "100"
   },
+  images: null,
   serviceState: INACTIVE,
   loaderVisibility: false,
   message: '',
@@ -30,6 +31,7 @@ const initialState = {
 const GetImagesReducer = (state = initialState, action) => {
   state = {
     ...state,
+    images: null,
     serviceState: INACTIVE,
     loaderVisibility: false,
     message: '',
@@ -42,7 +44,7 @@ const GetImagesReducer = (state = initialState, action) => {
       state = { ...state, serviceState: LOADING, loaderVisibility: true, message: "" };
       break;
     case GET_SUBMIT_IMAGES_DATA_SUCCESS:
-      state = { ...state, serviceState: SUCCESS, loaderVisibility: false, message: "" };
+      state = { ...state, images: action.payload, serviceState: SUCCESS, loaderVisibility: false, message: "" };
       break;
     case GET_SUBMIT_IMAGES_DATA_FAILURE:
       state = { ...state, serviceState: FAILURE, loaderVisibility: false, message: "Unable to get the images from server" };

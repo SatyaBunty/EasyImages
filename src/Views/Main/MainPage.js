@@ -4,6 +4,7 @@ import AboutPage from "../About/AboutPage";
 import ContactPage from "../Contact/ContactPage";
 import HomePage from "../Home/HomePage";
 import GetImagesOptionsPage from "../Images/GetImages/Step1/GetImagesOptionsPage";
+import ShowImageAsGallery from "../Images/GetImages/Step2/ShowImageAsGallery";
 import LoginPage from "../User/Login/LoginPage";
 import "./../ViewBody.css";
 
@@ -20,6 +21,7 @@ const MainPage = (props) => {
       <Route path="/about"><AboutPage /></Route>
       <Route path="/contact"><ContactPage /></Route>
       <Route path="/getImages"><GetImagesOptionsPage /></Route>
+      <Route path="/showImageGallery"><ShowImageAsGallery /></Route>
 
       <Route path="/login"><LoginPage /></Route>
       {/* <HomePage /> */}

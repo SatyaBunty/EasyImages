@@ -48,23 +48,26 @@ export function fetchSubmitGetImagesDataAction(getImagesData) {
 
       fetch(url, {
         method: 'GET',
-        mode: 'cors',
-        credentials: 'include', // include, *same-origin, omit
-        redirect: 'follow',
-        headers: {
-          // Accept: '*/*',
-          // 'Accept-Encoding': ['gzip', 'deflate', 'br'],
-          // Connection: 'keep-alive',
-          'Content-Type': 'application/json',
-        },
+        // mode: 'cors',
+        // credentials: 'include', // include, *same-origin, omit
+        // redirect: 'follow',
+        // headers: {
+        //   // Accept: '*/*',
+        //   // 'Accept-Encoding': ['gzip', 'deflate', 'br'],
+        //   // Connection: 'keep-alive',
+        //   'Content-Type': 'application/json',
+        // },
         // body: JSON.stringify(postData),
       })
         .then((response) => {
           return response.json();
         })
         .then((responseJSON) => {
-          if (responseJSON.status_code === SUCCESS_STATUS_CODE) {
-            dispatchSubmitGetImagesDataAction(getSubmitImagesDataSuccess({}));
+          // if (responseJSON.status_code === SUCCESS_STATUS_CODE) {
+          //   dispatchSubmitGetImagesDataAction(getSubmitImagesDataSuccess({}));
+          // }
+          if (responseJSON !== null && responseJSON !== undefined) {
+            dispatchSubmitGetImagesDataAction(getSubmitImagesDataSuccess(responseJSON));
           }
         })
         .catch((error) => {

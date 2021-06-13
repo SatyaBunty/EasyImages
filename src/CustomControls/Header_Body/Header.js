@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom'
+import CustomButton from '../CustomButton/CustomButton';
 import "./HeaderBody.css"
 
 const Header = (props) => {
@@ -57,10 +58,23 @@ outline: "none",
     <div className="headerBackgroundStyle">
       <div className="headerBackgroundStyle2">
         <div className="LeftButtonsHolderStyle">
+
+          {/* <CustomButton className="LeftButtonStyle" title="<" onClick={() => { }} />
+          <CustomButton className="LeftButtonStyle" buttonHolderclassName="LeftButtonStyle" onClick={() => { history.push("/home"); }}>Home</CustomButton>
+          <CustomButton className="LeftButtonStyle" buttonHolderclassName="LeftButtonStyle" onClick={() => { history.push("/about"); }}>About</CustomButton>
+          <CustomButton className="LeftButtonStyle" buttonHolderclassName="LeftButtonStyle" onClick={() => { history.push("/contact"); }}>Contact</CustomButton>
+          <CustomButton className="LeftButtonStyle" buttonHolderclassName="LeftButtonStyle" onClick={() => { history.push("/getImages"); }}>Images</CustomButton> */}
+
+          {/* <button className="LeftButtonStyle" onClick={() => { history.push("/home"); }}>Home</button>
+          <button className="LeftButtonStyle" onClick={() => { history.push("/about"); }}>About</button>
+          <button className="LeftButtonStyle" onClick={() => { history.push("/contact"); }}>Contact</button>
+          <button className="LeftButtonStyle" onClick={() => { history.push("/getImages"); }}>Images</button> */}
+          
           <button className="LeftButtonStyle" onClick={() => { history.push("/home"); }}>Home</button>
           <button className="LeftButtonStyle" onClick={() => { history.push("/about"); }}>About</button>
           <button className="LeftButtonStyle" onClick={() => { history.push("/contact"); }}>Contact</button>
           <button className="LeftButtonStyle" onClick={() => { history.push("/getImages"); }}>Images</button>
+
         </div>
         <div className="RightButtonsHolderStyle">
           <button className="RightButtonStyle" onClick={() => { history.push("/login"); }}>Login</button>

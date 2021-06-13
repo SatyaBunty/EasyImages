@@ -10,6 +10,8 @@ import Picker from '../../../../CustomControls/Picker/Picker';
 import "./GetImagesOptionsPage.css";
 import { options, imageTypeOptions, zeroIndexOptions } from './../../../../Constants/EnumConstants';
 import { getUpdateImagesData, fetchSubmitGetImagesDataAction } from '../GetImagesActions';
+import { SUCCESS } from '../../../../Constants/URLConstants';
+import { useHistory } from 'react-router-dom';
 
 const GetImagesOptions_Page = (props) => {
    const [selectedOption, changeSelectedOption] = useState(options.unSelected);
@@ -24,12 +26,14 @@ const GetImagesOptions_Page = (props) => {
    const {
       dispatch,
       imageData,
+      images,
       serviceState,
       loaderVisibility,
       message,
    } = props;
+   const history = useHistory();
 
-   console.log(props);
+   // console.log(props);
 
    const onOptionsSelected = (event) => {
       changeSelectedOption(event.target.value);
@@ -51,6 +55,13 @@ const GetImagesOptions_Page = (props) => {
       event.preventDefault();
       // console.log(imageData);
       dispatch(fetchSubmitGetImagesDataAction(imageData));
+   }
+
+   if(serviceState !== null && serviceState !== undefined && serviceState === "SUCCESS"){
+      history.push({
+         pathname: "/showImageGallery",
+         state: { imagesList: images }
+      });
    }
 
    const entryOptionsDiv = (optionSelected) => {
@@ -112,10 +123,10 @@ const GetImagesOptions_Page = (props) => {
    )
 }
 const mapToProps = (state) => {
-   console.log(state);
-   const { imageData, serviceState, loaderVisibility, message } = state.GetImagesReducer;
+   // console.log(state);
+   const { imageData, images, serviceState, loaderVisibility, message } = state.GetImagesReducer;
    return {
-      imageData, serviceState, loaderVisibility, message
+      imageData, images, serviceState, loaderVisibility, message
    };
 };
 

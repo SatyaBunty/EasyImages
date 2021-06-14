@@ -24,7 +24,7 @@ export const getSubmitImagesDataFailure = (failureReport) => ({
   type: GET_SUBMIT_IMAGES_DATA_FAILURE,
   payload: failureReport,
 });
-export const getYearsMonthsDataReset = () => ({
+export const getSubmitImagesDataReset = () => ({
   type: GET_SUBMIT_IMAGES_DATA_RESET,
 });
 

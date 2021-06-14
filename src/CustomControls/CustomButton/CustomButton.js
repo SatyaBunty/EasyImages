@@ -8,7 +8,8 @@ const CustomButton = (props) => {
         className,
         buttonHolderclassName,
         isInputButton,
-        onClick
+        onClick,
+        isFullButton,
     } = props;
 
     var _buttonHolderclassName = buttonHolderclassName;
@@ -21,14 +22,16 @@ const CustomButton = (props) => {
     }
 
       return (
-        <div className={_buttonHolderclassName}>
-            {
-                (isInputButton) ? 
-                <input type="submit" name={name} value={title} className={_className}/>
-                :
-                <button className={_className} onClick={onClick}>{title}</button>
-            }
-        </div>
+        //   (isFullButton) ?
+        // <div className={_buttonHolderclassName}>
+        //     {
+        //         (isInputButton) ? 
+        //         <input type="submit" name={name} value={title} className={_className}/>
+        //         :
+        //         <button className={_className} onClick={onClick}>{title}</button>
+        //     }
+        // </div> : 
+        <button className={_className} onClick={onClick}>{title}</button>
       )
 }
 export default CustomButton;

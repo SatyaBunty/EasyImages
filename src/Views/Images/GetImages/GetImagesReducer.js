@@ -11,7 +11,7 @@ import {
   GET_SUBMIT_IMAGES_DATA,
   GET_SUBMIT_IMAGES_DATA_SUCCESS,
   GET_SUBMIT_IMAGES_DATA_FAILURE,
-  // GET_YEARS_MONTHS_DETAILS_RESET,
+  GET_SUBMIT_IMAGES_DATA_RESET,
 } from './GetImagesActions';
 
 const initialState = {
@@ -49,6 +49,9 @@ const GetImagesReducer = (state = initialState, action) => {
     case GET_SUBMIT_IMAGES_DATA_FAILURE:
       state = { ...state, serviceState: FAILURE, loaderVisibility: false, message: "Unable to get the images from server" };
       break;
+      case GET_SUBMIT_IMAGES_DATA_RESET:
+        state = { ...initialState };
+        break;
     default:
       state = { ...state };
       break;

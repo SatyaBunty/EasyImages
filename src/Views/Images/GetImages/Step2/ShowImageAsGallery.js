@@ -54,7 +54,7 @@ const ShowImageAs_Gallery = (props) => {
 
    return (
       <div className="mainHolder">
-         <Header />
+         <Header showBackButton={true} navigationPath="/getImages" />
          {/* {(loaderVisibility) ?
             <Loader /> :
             <></>

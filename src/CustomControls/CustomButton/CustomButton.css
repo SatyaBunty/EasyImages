@@ -1,6 +1,6 @@
 .submitButton
 {
-    width: Calc(100% - 40px);
+    width: Calc(100% - 20px);
     height: 100%;
     background-color: white;
     border: none;
@@ -17,8 +17,8 @@
     /* height: 15px; */
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 .inputButtonDiv
 {

@@ -9,7 +9,7 @@ import PageBody from '../../../../CustomControls/Header_Body/PageBody';
 import Picker from '../../../../CustomControls/Picker/Picker';
 import "./GetImagesOptionsPage.css";
 import { options, imageTypeOptions, zeroIndexOptions } from './../../../../Constants/EnumConstants';
-import { getUpdateImagesData, fetchSubmitGetImagesDataAction } from '../GetImagesActions';
+import { getUpdateImagesData, fetchSubmitGetImagesDataAction, getSubmitImagesDataReset } from '../GetImagesActions';
 import { SUCCESS } from '../../../../Constants/URLConstants';
 import { useHistory } from 'react-router-dom';
 
@@ -62,6 +62,7 @@ const GetImagesOptions_Page = (props) => {
          pathname: "/showImageGallery",
          state: { imagesList: images }
       });
+      dispatch(getSubmitImagesDataReset());
    }
 
    const entryOptionsDiv = (optionSelected) => {
@@ -113,7 +114,7 @@ const GetImagesOptions_Page = (props) => {
                <>
                   <FormData method="post" action="" name="singleURLForm" onsubmit="return false;">
                      {entryOptionsDiv(selectedOption)}
-                     <CustomButton title="Submit" onClick={onSubmitOption} />
+                     <CustomButton isFullButton={true} title="Submit" onClick={onSubmitOption} />
                   </FormData>
                </> :
                <></>

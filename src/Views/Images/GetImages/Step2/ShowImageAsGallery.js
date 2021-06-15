@@ -31,6 +31,9 @@ const ShowImageAs_Gallery = (props) => {
          const displayURL = "https://drive.google.com/uc?id=" + item
          return (
             <div className="eachImageDiv">
+               <div className="closeButtonHolder">
+                  <CustomButton className="closeButton" title="X" onClick={() => {}} />
+               </div>
                <img className="displayImage" alt="unable to load" src={displayURL} />
             </div>
          )

@@ -48,8 +48,21 @@
 
 .displayImage{
 }
+.closeButton{
+    height: 40px;
+    width: 40px;
+}
+.closeButtonHolder{
+    width: 100%;
+}
 
 .galleryDiv{
+    /* height: 100%;
+    width: 50%;
+    position: fixed;
+    white-space: nowrap;
+    overflow-y: scroll; */
+
     height: 100%;
     white-space: nowrap;
     overflow-y: scroll;
@@ -57,10 +70,22 @@
 }
 .eachImageDiv
 {
+    /* height: 100%;
+    width: 50%;
+    float: right;
+    display: flex;
+    flex-direction: column; */
+
+
     flex: 1;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 .holderDiv{
+    /* flex-direction: row;
+    width: 100%; */
+
     display: flex;
     flex-direction: row;
     width: 100%;

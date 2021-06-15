@@ -1,0 +1,64 @@
+.imageCellViewImage
+{
+    height : 100px; 
+    width : 100px;
+    margin: 0px;
+    padding: 0px;
+    /* float:left */
+}
+.imageCellViewDiv
+{
+    position:static; 
+    margin:0px; 
+    padding: 0px;
+    height:100px; 
+    width:100px; 
+    /* float:left;  */
+    vertical-align:middle
+}
+.imageCellViewButton{
+    height: auto;
+    width: auto;
+    float: left;
+    margin: 5px;
+}
+
+.folderCellViewImage{
+    height : 100px; 
+    width : 100px;
+    margin: 0px;
+    padding: 0px;
+    /* float:left */
+}
+.folderCellViewDiv{
+    position:static; 
+    margin:0px; 
+    padding: 0px;
+    height:100px; 
+    width:100px; 
+    /* float:left;  */
+    vertical-align:middle
+}
+.folderCellViewButton{
+    height: auto;
+    width: auto;
+    float: left;
+    margin: 5px;
+}
+
+.galleryDiv{
+    height: 100%;
+    white-space: nowrap;
+    overflow-y: scroll;
+    flex: 1;
+}
+.eachImageDiv
+{
+    /* flex: 1; */
+    height: 100%;
+}
+.holderDiv{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children } from 'react';
 import "./CustomButton.css";
 
 const CustomButton = (props) => {
@@ -10,6 +10,7 @@ const CustomButton = (props) => {
         isInputButton,
         onClick,
         isFullButton,
+        children
     } = props;
 
     var _buttonHolderclassName = buttonHolderclassName;
@@ -31,7 +32,10 @@ const CustomButton = (props) => {
         //         <button className={_className} onClick={onClick}>{title}</button>
         //     }
         // </div> : 
-        <button className={_className} onClick={onClick}>{title}</button>
+        <button className={_className} onClick={onClick}>
+            {title}
+            {children}
+        </button>
       )
 }
 export default CustomButton;

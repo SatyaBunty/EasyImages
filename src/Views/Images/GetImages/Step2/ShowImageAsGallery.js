@@ -12,6 +12,7 @@ import { options, imageTypeOptions, zeroIndexOptions } from './../../../../Const
 import { useHistory } from 'react-router-dom';
 
 const ShowImageAs_Gallery = (props) => {
+   const [curentDisplayURL, changeCurrentDisplayURL] = useState("");
    const history = useHistory();
    const { imagesList } = history.location.state;
    console.log(imagesList);
@@ -21,15 +22,28 @@ const ShowImageAs_Gallery = (props) => {
       alert("folder clicked");
    }
 
-   const OnImageClick = () => {
-      alert("Image clicked");
+   const OnImageClick = (item) => {
+      changeCurrentDisplayURL(item.id);
    }
 
+   const onImageSelected = (item) => {
+      if (item !== null && item !== undefined && item !== "") {
+         const displayURL = "https://drive.google.com/uc?id=" + item
+         return (
+            <div className="eachImageDiv">
+               <img className="displayImage" alt="unable to load" src={displayURL} />
+            </div>
+         )
+      }
+      else {
+         return (<></>);
+      }
+   }
    const fillGalleryWithImages = (item) => {
       let cellViewDiv = (<></>);
       if (item.mimeType === "folder") {
          cellViewDiv = (
-            <CustomButton className="folderCellViewButton" onClick={OnFolderClick} >
+            <CustomButton className="folderCellViewButton" item={item} onClick={OnFolderClick} >
                <div className="folderCellViewDiv">
                   <img className="folderCellViewImage" alt="unable to load" src={`Assets/Images/FolderIcon.jpg`} />
                   <h3>{item.Name}</h3>
@@ -41,12 +55,11 @@ const ShowImageAs_Gallery = (props) => {
          const displayURL = "https://drive.google.com/uc?id=" + item.id;
          // var fileName = item.name;
          cellViewDiv = (
-            <CustomButton className="imageCellViewButton" onClick={OnImageClick}>
+            <CustomButton className="imageCellViewButton" onClick={() => OnImageClick(item)}>
                <div id="lvtemplate" className="imageCellViewDiv">
                   <img className="imageCellViewImage" alt="unable to load" src={displayURL} />
                </div>
             </CustomButton>
-
          )
       }
       else { }
@@ -67,9 +80,10 @@ const ShowImageAs_Gallery = (props) => {
                <div className="galleryDiv">
                   {images_List.map((item) => fillGalleryWithImages(item))}
                </div>
-               <div className="eachImageDiv">
-                  <p>world</p>
-               </div>
+               {onImageSelected(curentDisplayURL)}
+               {/* <div className="eachImageDiv">
+                  {onImageSelected()}
+               </div> */}
             </div>
          </PageBody>
       </div>

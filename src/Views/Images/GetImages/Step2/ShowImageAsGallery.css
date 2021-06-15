@@ -46,6 +46,9 @@
     margin: 5px;
 }
 
+.displayImage{
+}
+
 .galleryDiv{
     height: 100%;
     white-space: nowrap;
@@ -54,7 +57,7 @@
 }
 .eachImageDiv
 {
-    /* flex: 1; */
+    flex: 1;
     height: 100%;
 }
 .holderDiv{

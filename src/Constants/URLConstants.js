@@ -8,19 +8,8 @@ export const mainURL ='https://script.google.com/macros/s/'+googleProductionDepl
 
 //https://script.google.com/macros/s/AKfycbxMBuIJPBf6hvtwrOUkVOJTvYH2C7JWIS9yBH4lBu8/dev
 
-export const PostExpenditureURL =
-  '?Contenttype=application/json&userRequest=addNewBudgetData';
-  export const PostBulkExpenditureURL =
-  '?Contenttype=application/json&userRequest=addNewBulkBudgetData';
-export const GetAvailableYearsMonths =
-  '?Contenttype=application/json&userRequest=getFileNamesInExpensesFolder';
-export const PostGetAvailableMonthlyExpenseData =
-  '?Contenttype=application/json&userRequest=getDatabyMonth';
-
-export const GetGroceriesListURL =
-'?Contenttype=application/json&userRequest=getGroceriesListData';
-export const PostBulkGroceriesURL =
-'?Contenttype=application/json&userRequest=addGroceriesListData';
+export const PostGetImagesFromFolderURL =
+  '?Contenttype=application/json&userRequest=FileAccess';
 
 
 export const SUCCESS_STATUS_CODE = 201;

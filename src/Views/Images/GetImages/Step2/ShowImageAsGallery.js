@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Loader from '../../../../CustomControls/Loader/Loader';
 import CustomButton from '../../../../CustomControls/CustomButton/CustomButton';
@@ -10,51 +10,75 @@ import Picker from '../../../../CustomControls/Picker/Picker';
 import "./ShowImageAsGallery.css";
 import { options, imageTypeOptions, zeroIndexOptions } from './../../../../Constants/EnumConstants';
 import { useHistory } from 'react-router-dom';
+import { fetchGetImagesDataFromFolderAction, getImagesDataFromFolderReset } from './ShowImageAsGalleryActions';
 
 const ShowImageAs_Gallery = (props) => {
-   const [curentDisplayURL, changeCurrentDisplayURL] = useState("");
+   const imageDataModel =
+   {
+      id: "",
+      name: ""
+   }
+   const [curentDisplayImageItem, changeCurrentDisplayImageItem] = useState(imageDataModel);
    const history = useHistory();
    const { imagesList } = history.location.state;
    console.log(imagesList);
-   const images_List = imagesList.folder_items;
+   let images_List = imagesList.folder_items;
+   const {
+      dispatch,
+      images,
+      loaderVisibility
+   } = props;
 
-   const OnFolderClick = () => {
-      alert("folder clicked");
+   useEffect(() => {
+      dispatch(getImagesDataFromFolderReset());
+   }, [dispatch]);
+
+   useEffect(() => {
+      if (images !== null) {
+         images_List = images;
+      }
+   }, [images]);
+
+   const OnFolderClick = (folderItem) => {
+      if (folderItem !== null && folderItem !== undefined && folderItem !== "" && folderItem.id !== null && folderItem.id !== undefined && folderItem.id !== "") {
+         dispatch(fetchGetImagesDataFromFolderAction(folderItem.id));
+      }
    }
 
    const OnImageClick = (item) => {
-      changeCurrentDisplayURL(item.id);
+      changeCurrentDisplayImageItem(item);
    }
 
-   const onImageSelected = (item) => {
-      if (item !== null && item !== undefined && item !== "") {
-         const displayURL = "https://drive.google.com/uc?id=" + item
+   const onImageSelected = (selectedItem) => {
+      if (selectedItem !== null && selectedItem !== undefined && selectedItem !== "" && selectedItem.id !== null && selectedItem.id !== undefined && selectedItem.id !== "") {
+         const displayURL = "https://drive.google.com/uc?id=" + selectedItem.id
          return (
             <>
-            <div className="galleryDivShared">
+               <div className="galleryDivShared">
                   {images_List.map((item) => fillGalleryWithImages(item))}
                </div>
 
-            <div className="eachImageDiv">
-               <div className="closeButtonHolder">
-                  <CustomButton className="closeButton" title="X" onClick={() => {}} />
+               <div className="eachImageDiv">
+                  <div className="closeButtonHolder">
+                     <p>{selectedItem.name}</p>
+                     <CustomButton className="closeButton" title="X" onClick={() => { changeCurrentDisplayImageItem(imageDataModel) }} />
+                  </div>
+                  <img className="displayImage" alt="unable to load" src={displayURL} />
                </div>
-               <img className="displayImage" alt="unable to load" src={displayURL} />
-            </div>
             </>
          )
       }
       else {
          return (<><div className="galleryDivFull">
-         {images_List.map((item) => fillGalleryWithImages(item))}
-      </div></>);
+            {images_List.map((item) => fillGalleryWithImages(item))}
+         </div></>);
       }
    }
    const fillGalleryWithImages = (item) => {
       let cellViewDiv = (<></>);
       if (item.mimeType === "folder") {
          cellViewDiv = (
-            <CustomButton className="folderCellViewButton" item={item} onClick={OnFolderClick} >
+            <CustomButton className="folderCellViewButton" item={item} onClick={() => OnFolderClick(item)} >
                <div className="folderCellViewDiv">
                   <img className="folderCellViewImage" alt="unable to load" src={`Assets/Images/FolderIcon.jpg`} />
                   <h3>{item.Name}</h3>
@@ -82,16 +106,16 @@ const ShowImageAs_Gallery = (props) => {
    return (
       <div className="mainHolder">
          <Header showBackButton={true} navigationPath="/getImages" />
-         {/* {(loaderVisibility) ?
+         {(loaderVisibility) ?
             <Loader /> :
             <></>
-         } */}
+         }
          <PageBody className="bodyHolder">
             <div className="holderDiv">
                {/* <div className="galleryDiv">
                   {images_List.map((item) => fillGalleryWithImages(item))}
                </div> */}
-               {onImageSelected(curentDisplayURL)}
+               {onImageSelected(curentDisplayImageItem)}
                {/* <div className="eachImageDiv">
                   {onImageSelected()}
                </div> */}
@@ -102,10 +126,9 @@ const ShowImageAs_Gallery = (props) => {
 }
 const mapToProps = (state) => {
    // console.log(state);
-   // const { imageData, images, serviceState, loaderVisibility, message } = state.GetImagesReducer;
+   const { images, serviceState, loaderVisibility, message } = state.GetImagesReducer;
    return {
-      ...state
-      // imageData, images, serviceState, loaderVisibility, message
+      images, serviceState, loaderVisibility, message
    };
 };
 

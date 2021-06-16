@@ -26,7 +26,9 @@ const ShowImageAs_Gallery = (props) => {
    const {
       dispatch,
       images,
-      loaderVisibility
+      loaderVisibility,
+      serviceState,
+      message
    } = props;
 
    useEffect(() => {

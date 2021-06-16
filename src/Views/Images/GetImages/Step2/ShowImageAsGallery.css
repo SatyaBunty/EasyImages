@@ -56,37 +56,49 @@
     width: 100%;
 }
 
-.galleryDiv{
-    /* height: 100%;
+.galleryDivShared{
+    height: 100%;
     width: 50%;
     position: fixed;
     white-space: nowrap;
-    overflow-y: scroll; */
+    overflow-y: scroll;
 
-    height: 100%;
+    /* height: 100%;
     white-space: nowrap;
     overflow-y: scroll;
-    flex: 1;
+    flex: 1; */
+}
+.galleryDivFull{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    white-space: nowrap;
+    overflow-y: scroll;
+
+    /* height: 100%;
+    white-space: nowrap;
+    overflow-y: scroll;
+    flex: 1; */
 }
 .eachImageDiv
 {
-    /* height: 100%;
+    height: 100%;
     width: 50%;
     float: right;
     display: flex;
-    flex-direction: column; */
+    flex-direction: column;
 
 
-    flex: 1;
+    /* flex: 1;
     height: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; */
 }
 .holderDiv{
-    /* flex-direction: row;
-    width: 100%; */
-
-    display: flex;
     flex-direction: row;
     width: 100%;
+
+    /* display: flex;
+    flex-direction: row;
+    width: 100%; */
 }

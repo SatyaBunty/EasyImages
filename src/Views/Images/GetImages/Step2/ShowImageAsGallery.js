@@ -30,16 +30,24 @@ const ShowImageAs_Gallery = (props) => {
       if (item !== null && item !== undefined && item !== "") {
          const displayURL = "https://drive.google.com/uc?id=" + item
          return (
+            <>
+            <div className="galleryDivShared">
+                  {images_List.map((item) => fillGalleryWithImages(item))}
+               </div>
+
             <div className="eachImageDiv">
                <div className="closeButtonHolder">
                   <CustomButton className="closeButton" title="X" onClick={() => {}} />
                </div>
                <img className="displayImage" alt="unable to load" src={displayURL} />
             </div>
+            </>
          )
       }
       else {
-         return (<></>);
+         return (<><div className="galleryDivFull">
+         {images_List.map((item) => fillGalleryWithImages(item))}
+      </div></>);
       }
    }
    const fillGalleryWithImages = (item) => {
@@ -80,9 +88,9 @@ const ShowImageAs_Gallery = (props) => {
          } */}
          <PageBody className="bodyHolder">
             <div className="holderDiv">
-               <div className="galleryDiv">
+               {/* <div className="galleryDiv">
                   {images_List.map((item) => fillGalleryWithImages(item))}
-               </div>
+               </div> */}
                {onImageSelected(curentDisplayURL)}
                {/* <div className="eachImageDiv">
                   {onImageSelected()}

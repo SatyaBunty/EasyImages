@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import Loader from '../../../../CustomControls/Loader/Loader';
-import CustomButton from '../../../../CustomControls/CustomButton/CustomButton';
-import EntryBox from '../../../../CustomControls/EntryBox/EntryBox';
-import FormData from '../../../../CustomControls/FormData/FormData';
-import Header from '../../../../CustomControls/Header_Body/Header';
-import PageBody from '../../../../CustomControls/Header_Body/PageBody';
-import Picker from '../../../../CustomControls/Picker/Picker';
+import Loader from './../../../../CustomControls/Loader/Loader';
+import CustomButton from './../../../../CustomControls/CustomButton/CustomButton';
+import Header from './../../../../CustomControls/Header_Body/Header';
+import PageBody from './../../../../CustomControls/Header_Body/PageBody';
 import "./ShowImageAsGallery.css";
-import { options, imageTypeOptions, zeroIndexOptions } from './../../../../Constants/EnumConstants';
 import { useHistory } from 'react-router-dom';
-import { fetchGetImagesDataFromFolderAction, getImagesDataFromFolderReset } from './ShowImageAsGalleryActions';
+import { fetchGetImagesDataFromFolderAction, getImagesDataFromFolderReset, getServiceStateReset } from './ShowImageAsGalleryActions';
+import { FAILURE, SUCCESS } from './../../../../Constants/URLConstants';
 
 const ShowImageAs_Gallery = (props) => {
    const imageDataModel =
@@ -21,8 +18,8 @@ const ShowImageAs_Gallery = (props) => {
    const [curentDisplayImageItem, changeCurrentDisplayImageItem] = useState(imageDataModel);
    const history = useHistory();
    const { imagesList } = history.location.state;
-   console.log(imagesList);
-   let images_List = imagesList.folder_items;
+   // console.log(imagesList);
+   let images_List = [];
    const {
       dispatch,
       images,
@@ -35,11 +32,11 @@ const ShowImageAs_Gallery = (props) => {
       dispatch(getImagesDataFromFolderReset());
    }, [dispatch]);
 
-   useEffect(() => {
-      if (images !== null) {
-         images_List = images;
-      }
-   }, [images]);
+   // useEffect(() => {
+   //    if (images !== null) {
+   //       images_List = images;
+   //    }
+   // }, [images]);
 
    const OnFolderClick = (folderItem) => {
       if (folderItem !== null && folderItem !== undefined && folderItem !== "" && folderItem.id !== null && folderItem.id !== undefined && folderItem.id !== "") {
@@ -49,6 +46,39 @@ const ShowImageAs_Gallery = (props) => {
 
    const OnImageClick = (item) => {
       changeCurrentDisplayImageItem(item);
+   }
+
+   // if (serviceState !== null && serviceState !== undefined && serviceState !== "" && message !== null && message !== undefined && message !== "") {
+   //    if (window.confirm(message)) {
+   //       if (serviceState === SUCCESS) {
+   //          if(images !== null && images !== undefined && images !== "" && images.length > 0){
+   //             images_List = images;
+   //          }
+   //       }
+   //       else if (serviceState === FAILURE) {
+   //       }
+   //    }
+   //    dispatch(getServiceStateReset());
+   // }
+
+   if (serviceState !== null && serviceState !== undefined && serviceState !== "") {
+
+      if (serviceState === FAILURE && message !== null && message !== undefined && message !== "") {
+         if (window.confirm(message)) { }
+      } else if (serviceState === SUCCESS) {
+         if (images !== null && images !== undefined && images !== "" && images.length > 0) {
+            images_List = images;
+         }
+      }
+      else{
+         if (images !== null && images !== undefined && images !== "" && images.length > 0) {
+            images_List = images;
+         }
+         else{
+            images_List = imagesList.folder_items
+         }
+      }
+      dispatch(getServiceStateReset());
    }
 
    const onImageSelected = (selectedItem) => {
@@ -127,8 +157,8 @@ const ShowImageAs_Gallery = (props) => {
    )
 }
 const mapToProps = (state) => {
-   // console.log(state);
-   const { images, serviceState, loaderVisibility, message } = state.GetImagesReducer;
+   console.log(state);
+   const { images, serviceState, loaderVisibility, message } = state.ShowImageAsGalleryReducer;
    return {
       images, serviceState, loaderVisibility, message
    };

@@ -9,7 +9,7 @@ import PageBody from '../../../../CustomControls/Header_Body/PageBody';
 import Picker from '../../../../CustomControls/Picker/Picker';
 import "./GetImagesOptionsPage.css";
 import { options, imageTypeOptions, zeroIndexOptions } from './../../../../Constants/EnumConstants';
-import { getUpdateImagesData, fetchSubmitGetImagesDataAction, getSubmitImagesDataReset } from '../GetImagesActions';
+import { getUpdateImagesData, fetchSubmitGetImagesDataAction, getSubmitImagesDataReset } from './GetImagesActions';
 import { SUCCESS } from '../../../../Constants/URLConstants';
 import { useHistory } from 'react-router-dom';
 

@@ -1,10 +1,10 @@
-import { imageTypeOptions, zeroIndexOptions } from '../../../Constants/EnumConstants';
+import { imageTypeOptions, zeroIndexOptions } from '../../../../Constants/EnumConstants';
 import {
   FAILURE,
   INACTIVE,
   LOADING,
   SUCCESS,
-} from '../../../Constants/URLConstants';
+} from '../../../../Constants/URLConstants';
 import {
   // GET_IMAGES_DATA,
   GET_UPDATE_IMAGES_DATA,

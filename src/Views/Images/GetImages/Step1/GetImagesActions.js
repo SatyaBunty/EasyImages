@@ -1,5 +1,5 @@
-import { mainURL, SUCCESS_STATUS_CODE } from "../../../Constants/URLConstants";
-import { ErrorEventLogger } from './../../../Helpers/EventLogger';
+import { mainURL } from "./../../../../Constants/URLConstants";
+import { ErrorEventLogger } from './../../../../Helpers/EventLogger';
 
 export const GET_IMAGES_DATA = 'GET_IMAGES_DATA';
 export const GET_UPDATE_IMAGES_DATA = 'GET_UPDATE_IMAGES_DATA';

@@ -32,12 +32,6 @@ const ShowImageAs_Gallery = (props) => {
       dispatch(getImagesDataFromFolderReset());
    }, [dispatch]);
 
-   // useEffect(() => {
-   //    if (images !== null) {
-   //       images_List = images;
-   //    }
-   // }, [images]);
-
    const OnFolderClick = (folderItem) => {
       if (folderItem !== null && folderItem !== undefined && folderItem !== "" && folderItem.id !== null && folderItem.id !== undefined && folderItem.id !== "") {
          dispatch(fetchGetImagesDataFromFolderAction(folderItem.id));
@@ -47,19 +41,6 @@ const ShowImageAs_Gallery = (props) => {
    const OnImageClick = (item) => {
       changeCurrentDisplayImageItem(item);
    }
-
-   // if (serviceState !== null && serviceState !== undefined && serviceState !== "" && message !== null && message !== undefined && message !== "") {
-   //    if (window.confirm(message)) {
-   //       if (serviceState === SUCCESS) {
-   //          if(images !== null && images !== undefined && images !== "" && images.length > 0){
-   //             images_List = images;
-   //          }
-   //       }
-   //       else if (serviceState === FAILURE) {
-   //       }
-   //    }
-   //    dispatch(getServiceStateReset());
-   // }
 
    if (serviceState !== null && serviceState !== undefined && serviceState !== "") {
 

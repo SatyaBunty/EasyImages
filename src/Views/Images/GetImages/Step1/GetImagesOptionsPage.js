@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Loader from '../../../../CustomControls/Loader/Loader';
 import CustomButton from '../../../../CustomControls/CustomButton/CustomButton';
@@ -8,13 +8,13 @@ import Header from '../../../../CustomControls/Header_Body/Header';
 import PageBody from '../../../../CustomControls/Header_Body/PageBody';
 import Picker from '../../../../CustomControls/Picker/Picker';
 import "./GetImagesOptionsPage.css";
-import { options, imageTypeOptions, zeroIndexOptions } from './../../../../Constants/EnumConstants';
+import { imageFetchTypeOptions, imageTypeOptions, zeroIndexOptions } from './../../../../Constants/EnumConstants';
 import { getUpdateImagesData, fetchSubmitGetImagesDataAction, getSubmitImagesDataReset } from './GetImagesActions';
 import { SUCCESS } from '../../../../Constants/URLConstants';
 import { useHistory } from 'react-router-dom';
 
 const GetImagesOptions_Page = (props) => {
-   const [selectedOption, changeSelectedOption] = useState(options.unSelected);
+   // const [selectedOption, changeSelectedOption] = useState(imageFetchTypeOptions.unSelected);
    // const [imageData, changeImageData] = useState({
    //    imageType: imageTypeOptions.JPG,
    //    isZeroIndexed: zeroIndexOptions.YES,
@@ -36,7 +36,8 @@ const GetImagesOptions_Page = (props) => {
    // console.log(props);
 
    const onOptionsSelected = (event) => {
-      changeSelectedOption(event.target.value);
+      // changeSelectedOption(event.target.value);
+      dispatch(getUpdateImagesData({ ...imageData, imageFetchType: event.target.value }));
    }
 
    const onImageDataOptionsSelected = (event) => {
@@ -66,15 +67,15 @@ const GetImagesOptions_Page = (props) => {
    }
 
    const entryOptionsDiv = (optionSelected) => {
-      if (optionSelected === options.LocalImages) {
+      if (optionSelected === imageFetchTypeOptions.LocalImages) {
          return (<div>
          </div>);
-      } else if (optionSelected === options.PersonalImages) {
+      } else if (optionSelected === imageFetchTypeOptions.PersonalImages) {
          return (<div>
             <EntryBox id="hehe" labelText="User Name" hintText="Enter User Name" isRequired={true} />
             <EntryBox type="password" labelText="User Password" hintText="Enter Password" isRequired={true} />
          </div>);
-      } else if (optionSelected === options.NonComplexUrl) {
+      } else if (optionSelected === imageFetchTypeOptions.NonComplexUrl) {
          return (<div>
             <Picker name="imageType" labelText="Select a image type" onChange={onImageDataOptionsSelected}>
                <option value={imageTypeOptions.JPG}>{imageTypeOptions.JPG}</option>
@@ -104,16 +105,17 @@ const GetImagesOptions_Page = (props) => {
          <PageBody className="bodyHolder">
             <div>
                <Picker labelText="Please select an option" onChange={onOptionsSelected}>
-                  <option value={options.unSelected}>select a option</option>
-                  <option value={options.LocalImages}>Access Local Images</option>
-                  <option value={options.PersonalImages}>Access Personal Images</option>
-                  <option value={options.NonComplexUrl}>I have a non Complex URL</option>
+                  <option value={imageFetchTypeOptions.unSelected}>select a option</option>
+                  <option value={imageFetchTypeOptions.LocalImages}>Access Local Images</option>
+                  <option value={imageFetchTypeOptions.PersonalImages}>Access Personal Images</option>
+                  <option value={imageFetchTypeOptions.NonComplexUrl}>I have a non Complex URL</option>
                </Picker>
             </div>
-            {(selectedOption !== options.unSelected) ?
+            {(imageData.imageFetchType !== imageFetchTypeOptions.unSelected) ? /* {(selectedOption !== imageFetchTypeOptions.unSelected) ? }*/
                <>
                   <FormData method="post" action="" name="singleURLForm" onsubmit="return false;">
-                     {entryOptionsDiv(selectedOption)}
+                     {/* {entryOptionsDiv(selectedOption)} */}
+                     {entryOptionsDiv(imageData.imageFetchType)}
                      <CustomButton isFullButton={true} title="Submit" onClick={onSubmitOption} />
                   </FormData>
                </> :

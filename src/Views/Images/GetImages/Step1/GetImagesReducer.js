@@ -16,6 +16,7 @@ import {
 
 const initialState = {
   imageData: {
+    imageFetchType: "",
     imageType: imageTypeOptions.JPG,
     isZeroIndexed: zeroIndexOptions.YES,
     imageURL: "",

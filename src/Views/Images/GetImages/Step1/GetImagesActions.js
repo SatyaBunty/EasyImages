@@ -1,5 +1,12 @@
+import { imageFetchTypeOptions } from "../../../../Constants/EnumConstants";
 import { mainURL } from "./../../../../Constants/URLConstants";
 import { ErrorEventLogger } from './../../../../Helpers/EventLogger';
+
+// export const imageFetchTypeOptions = Object.freeze({
+//   IS_LOCAL_IMAGES: "IS_LOCAL_IMAGES",
+//   IS_PERSONAL_IMAGES: "IS_PERSONAL_IMAGES",
+//   IS_FROM_NON_COMPLEX_URL: "IS_FROM_NON_COMPLEX_URL"
+// });
 
 export const GET_IMAGES_DATA = 'GET_IMAGES_DATA';
 export const GET_UPDATE_IMAGES_DATA = 'GET_UPDATE_IMAGES_DATA';
@@ -28,9 +35,39 @@ export const getSubmitImagesDataReset = () => ({
   type: GET_SUBMIT_IMAGES_DATA_RESET,
 });
 
+
+
 export function fetchSubmitGetImagesDataAction(getImagesData) {
   return async (dispatchSubmitGetImagesDataAction) => {
-    dispatchSubmitGetImagesDataAction(getSubmitImagesData());
+    try {
+      if (getImagesData !== null && getImagesData !== undefined && getImagesData !== "") {
+        switch (getImagesData.imageFetchType) {
+          case imageFetchTypeOptions.PersonalImages:
+            dispatchSubmitGetImagesDataAction(fetchGetLocalImagesDataAction());
+            break;
+          case imageFetchTypeOptions.NonComplexUrl:
+            dispatchSubmitGetImagesDataAction(fetchGetLocalImagesDataAction());
+            break;
+          default:
+            dispatchSubmitGetImagesDataAction(fetchGetLocalImagesDataAction());
+            break;
+        }
+      }
+      else {
+        dispatchSubmitGetImagesDataAction(fetchGetLocalImagesDataAction());
+      }
+    } catch (error) {
+      ErrorEventLogger(error);
+      dispatchSubmitGetImagesDataAction(
+        getSubmitImagesDataFailure({ errorMessage: 'Catch Block triggered' }),
+      );
+    }
+  };
+}
+
+export function fetchGetLocalImagesDataAction() {
+  return async (dispatchGetLocalImagesDataAction) => {
+    dispatchGetLocalImagesDataAction(getSubmitImagesData());
     try {
       const url = mainURL;// + PostExpenditureURL;
       // const postData = {
@@ -67,11 +104,11 @@ export function fetchSubmitGetImagesDataAction(getImagesData) {
           //   dispatchSubmitGetImagesDataAction(getSubmitImagesDataSuccess({}));
           // }
           if (responseJSON !== null && responseJSON !== undefined) {
-            dispatchSubmitGetImagesDataAction(getSubmitImagesDataSuccess(responseJSON));
+            dispatchGetLocalImagesDataAction(getSubmitImagesDataSuccess(responseJSON));
           }
         })
         .catch((error) => {
-          dispatchSubmitGetImagesDataAction(
+          dispatchGetLocalImagesDataAction(
             getSubmitImagesDataFailure({
               errorMessage: 'Catch Block triggered for fetch',
             }),
@@ -80,7 +117,7 @@ export function fetchSubmitGetImagesDataAction(getImagesData) {
         });
     } catch (error) {
       ErrorEventLogger(error);
-      dispatchSubmitGetImagesDataAction(
+      dispatchGetLocalImagesDataAction(
         getSubmitImagesDataFailure({ errorMessage: 'Catch Block triggered' }),
       );
     }

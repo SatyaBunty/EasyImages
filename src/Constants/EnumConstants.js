@@ -1,4 +1,4 @@
-export const options = Object.freeze({
+export const imageFetchTypeOptions = Object.freeze({
     unSelected: "null",
     LocalImages: "Access Local Images",
     PersonalImages: "Access Personal Images",

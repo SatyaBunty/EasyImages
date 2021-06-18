@@ -1,5 +1,5 @@
 import { imageFetchTypeOptions, zeroIndexOptions } from "../../../../Constants/EnumConstants";
-import { mainURL } from "./../../../../Constants/URLConstants";
+import { mainURL, PostGetPersonalImagesFromDriveURL } from "./../../../../Constants/URLConstants";
 import { ErrorEventLogger } from './../../../../Helpers/EventLogger';
 
 // export const imageFetchTypeOptions = Object.freeze({
@@ -112,9 +112,6 @@ export function fetchGetLocalImagesDataAction() {
               }
               return eachImage;
             });
-
-            // folderItems.push(eachImage);
-
             const imagesList = {
               folder_items: folderItems
             }
@@ -143,16 +140,43 @@ export function fetchGetPersonalImagesDataAction(getImagesData) {
   return async (dispatchGetLocalImagesDataAction) => {
     dispatchGetLocalImagesDataAction(getSubmitImagesData());
     try {
-      const url = mainURL;
+      const url = mainURL + PostGetPersonalImagesFromDriveURL;
+      var postData = {
+        method_name: "GetValidUserData",
+        service_request_data: {
+          UserName: getImagesData.userName,
+          Password: getImagesData.userPassword,
+        }
+      };
       fetch(url, {
-        method: 'GET',
+        method: 'POST',
+        headers: {
+          Accept: '*/*',
+          credentials: 'include', // include, *same-origin, omit
+          redirect: 'follow',
+          'Accept-Encoding': ['gzip', 'deflate', 'br'],
+          Connection: 'keep-alive',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postData),
       })
         .then((response) => {
           return response.json();
         })
         .then((responseJSON) => {
           if (responseJSON !== null && responseJSON !== undefined) {
-            dispatchGetLocalImagesDataAction(getSubmitImagesDataSuccess(responseJSON));
+            let folderItems = responseJSON.folder_items.map((item) => {
+              const finalImageURL = `https://drive.google.com/uc?id=${item.id}`;
+              const eachImage = {
+                ...item,
+                displayURL: finalImageURL
+              }
+              return eachImage;
+            });
+            const imagesList = {
+              folder_items: folderItems
+            }
+            dispatchGetLocalImagesDataAction(getSubmitImagesDataSuccess(imagesList));
           }
         })
         .catch((error) => {

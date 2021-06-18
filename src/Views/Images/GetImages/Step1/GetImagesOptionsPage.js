@@ -65,15 +65,15 @@ const GetImagesOptions_Page = (props) => {
       });
       dispatch(getSubmitImagesDataReset());
    }
-
+   
    const entryOptionsDiv = (optionSelected) => {
       if (optionSelected === imageFetchTypeOptions.LocalImages) {
          return (<div>
          </div>);
       } else if (optionSelected === imageFetchTypeOptions.PersonalImages) {
          return (<div>
-            <EntryBox id="hehe" labelText="User Name" hintText="Enter User Name" isRequired={true} />
-            <EntryBox type="password" labelText="User Password" hintText="Enter Password" isRequired={true} />
+            <EntryBox name="userName" labelText="User Name" hintText="Enter User Name" onChange={onImageDataEntryValueChaned} isRequired={true} />
+            <EntryBox name="userPassword" type="password" labelText="User Password" hintText="Enter Password" onChange={onImageDataEntryValueChaned} isRequired={true} />
          </div>);
       } else if (optionSelected === imageFetchTypeOptions.NonComplexUrl) {
          return (<div>
@@ -82,7 +82,7 @@ const GetImagesOptions_Page = (props) => {
                <option value={imageTypeOptions.JPEG}>{imageTypeOptions.JPEG}</option>
                <option value={imageTypeOptions.PNG}>{imageTypeOptions.PNG}</option>
             </Picker>
-            <EntryBox name="imageURL" labelText="Add URL" hintText="Enter URL" onChange={onImageDataEntryValueChaned} isRequired={true} />
+            <EntryBox name="imageURL" labelText="Add URL by removing the number and image type (eg.:www.img01.jpg --> www.img)" hintText="Enter URL" onChange={onImageDataEntryValueChaned} isRequired={true} />
             <EntryBox name="startIndex" labelText="Enter start number of number of images needed" hintText="Enter Start Index" onChange={onImageDataEntryValueChaned} isRequired={true} />
             <EntryBox name="endIndex" labelText="Enter last number of number of images needed" hintText="Enter Last Index" onChange={onImageDataEntryValueChaned} isRequired={true} />
             <Picker name="isZeroIndexed" labelText="Select does the index of images need 0 at front as 01, 02" onChange={onImageDataOptionsSelected}>

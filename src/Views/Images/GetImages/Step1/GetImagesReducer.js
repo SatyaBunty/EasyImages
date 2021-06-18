@@ -21,7 +21,10 @@ const initialState = {
     isZeroIndexed: zeroIndexOptions.YES,
     imageURL: "",
     startIndex: "0",
-    endIndex: "100"
+    endIndex: "100",
+
+    userName: "",
+    userPassword: "",
   },
   images: null,
   serviceState: INACTIVE,

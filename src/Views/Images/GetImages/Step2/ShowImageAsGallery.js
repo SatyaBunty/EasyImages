@@ -64,7 +64,7 @@ const ShowImageAs_Gallery = (props) => {
 
    const onImageSelected = (selectedItem) => {
       if (selectedItem !== null && selectedItem !== undefined && selectedItem !== "" && selectedItem.id !== null && selectedItem.id !== undefined && selectedItem.id !== "") {
-         const displayURL = "https://drive.google.com/uc?id=" + selectedItem.id
+         const displayURL = selectedItem.displayURL;//"https://drive.google.com/uc?id=" + selectedItem.id
          return (
             <>
                <div className="galleryDivShared">
@@ -100,7 +100,7 @@ const ShowImageAs_Gallery = (props) => {
          )
       }
       else if (item.mimeType === "image") {
-         const displayURL = "https://drive.google.com/uc?id=" + item.id;
+         const displayURL = item.displayURL;//"https://drive.google.com/uc?id=" + item.id;
          // var fileName = item.name;
          cellViewDiv = (
             <CustomButton className="imageCellViewButton" onClick={() => OnImageClick(item)}>
@@ -138,7 +138,7 @@ const ShowImageAs_Gallery = (props) => {
    )
 }
 const mapToProps = (state) => {
-   console.log(state);
+   // console.log(state);
    const { images, serviceState, loaderVisibility, message } = state.ShowImageAsGalleryReducer;
    return {
       images, serviceState, loaderVisibility, message

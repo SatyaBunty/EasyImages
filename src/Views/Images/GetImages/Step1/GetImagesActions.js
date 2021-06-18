@@ -1,4 +1,4 @@
-import { imageFetchTypeOptions } from "../../../../Constants/EnumConstants";
+import { imageFetchTypeOptions, zeroIndexOptions } from "../../../../Constants/EnumConstants";
 import { mainURL } from "./../../../../Constants/URLConstants";
 import { ErrorEventLogger } from './../../../../Helpers/EventLogger';
 
@@ -43,10 +43,10 @@ export function fetchSubmitGetImagesDataAction(getImagesData) {
       if (getImagesData !== null && getImagesData !== undefined && getImagesData !== "") {
         switch (getImagesData.imageFetchType) {
           case imageFetchTypeOptions.PersonalImages:
-            dispatchSubmitGetImagesDataAction(fetchGetLocalImagesDataAction());
+            dispatchSubmitGetImagesDataAction(fetchGetPersonalImagesDataAction(getImagesData));
             break;
           case imageFetchTypeOptions.NonComplexUrl:
-            dispatchSubmitGetImagesDataAction(fetchGetLocalImagesDataAction());
+            dispatchSubmitGetImagesDataAction(fetchGetNonComplexUrlImagesDataAction(getImagesData));
             break;
           default:
             dispatchSubmitGetImagesDataAction(fetchGetLocalImagesDataAction());
@@ -104,6 +104,54 @@ export function fetchGetLocalImagesDataAction() {
           //   dispatchSubmitGetImagesDataAction(getSubmitImagesDataSuccess({}));
           // }
           if (responseJSON !== null && responseJSON !== undefined) {
+            let folderItems = responseJSON.folder_items.map((item) => {
+              const finalImageURL = `https://drive.google.com/uc?id=${item.id}`;
+              const eachImage = {
+                ...item,
+                displayURL: finalImageURL
+              }
+              return eachImage;
+            });
+
+            // folderItems.push(eachImage);
+
+            const imagesList = {
+              folder_items: folderItems
+            }
+            dispatchGetLocalImagesDataAction(getSubmitImagesDataSuccess(imagesList));
+          }
+        })
+        .catch((error) => {
+          dispatchGetLocalImagesDataAction(
+            getSubmitImagesDataFailure({
+              errorMessage: 'Catch Block triggered for fetch',
+            }),
+          );
+          ErrorEventLogger(error);
+        });
+    } catch (error) {
+      ErrorEventLogger(error);
+      dispatchGetLocalImagesDataAction(
+        getSubmitImagesDataFailure({ errorMessage: 'Catch Block triggered' }),
+      );
+    }
+  };
+}
+
+
+export function fetchGetPersonalImagesDataAction(getImagesData) {
+  return async (dispatchGetLocalImagesDataAction) => {
+    dispatchGetLocalImagesDataAction(getSubmitImagesData());
+    try {
+      const url = mainURL;
+      fetch(url, {
+        method: 'GET',
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((responseJSON) => {
+          if (responseJSON !== null && responseJSON !== undefined) {
             dispatchGetLocalImagesDataAction(getSubmitImagesDataSuccess(responseJSON));
           }
         })
@@ -116,6 +164,60 @@ export function fetchGetLocalImagesDataAction() {
           ErrorEventLogger(error);
         });
     } catch (error) {
+      ErrorEventLogger(error);
+      dispatchGetLocalImagesDataAction(
+        getSubmitImagesDataFailure({ errorMessage: 'Catch Block triggered' }),
+      );
+    }
+  };
+}
+
+
+export function fetchGetNonComplexUrlImagesDataAction(getImagesData) {
+  return async (dispatchGetLocalImagesDataAction) => {
+    dispatchGetLocalImagesDataAction(getSubmitImagesData());
+    try {
+      const url = getImagesData.imageURL;
+
+      var imageType = getImagesData.imageType;
+
+      let _startIndex = parseInt(getImagesData.startIndex);
+      let _endIndex = parseInt(getImagesData.endIndex);
+      let startIndex = 0;
+      var endIndex = 10;
+      if (!isNaN(_startIndex)) {
+        startIndex = _startIndex;
+      }
+      if (!isNaN(_endIndex)) {
+        endIndex = _endIndex;
+      }
+
+      let folderItems = [];
+
+      var hasZeroForSingleDigitsNum = getImagesData.isZeroIndexed;
+      for (var i = startIndex; i <= endIndex; i++) {
+        var changablePart = i;
+        if (hasZeroForSingleDigitsNum === zeroIndexOptions.YES) {
+          if (i < 10) {
+            changablePart = "0" + i;
+          }
+        }
+        const finalImageURL = url + changablePart + "." + imageType;
+        const eachImage = {
+          id: changablePart,
+          mimeType: "image",
+          name: "",
+          url: finalImageURL,
+          displayURL: finalImageURL,
+        }
+        folderItems.push(eachImage);
+      }
+      const imagesList = {
+        folder_items: folderItems
+      }
+      dispatchGetLocalImagesDataAction(getSubmitImagesDataSuccess(imagesList));
+    }
+    catch (error) {
       ErrorEventLogger(error);
       dispatchGetLocalImagesDataAction(
         getSubmitImagesDataFailure({ errorMessage: 'Catch Block triggered' }),

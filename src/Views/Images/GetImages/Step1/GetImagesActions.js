@@ -1,4 +1,5 @@
 import { imageFetchTypeOptions, zeroIndexOptions } from "../../../../Constants/EnumConstants";
+import { JSDownloader } from "../../../../Helpers/JSDownloader";
 import { mainURL, PostGetPersonalImagesFromDriveURL } from "./../../../../Constants/URLConstants";
 import { ErrorEventLogger } from './../../../../Helpers/EventLogger';
 
@@ -140,53 +141,108 @@ export function fetchGetPersonalImagesDataAction(getImagesData) {
   return async (dispatchGetLocalImagesDataAction) => {
     dispatchGetLocalImagesDataAction(getSubmitImagesData());
     try {
-      const url = mainURL + PostGetPersonalImagesFromDriveURL;
-      var postData = {
-        method_name: "GetValidUserData",
-        service_request_data: {
-          UserName: getImagesData.userName,
-          Password: getImagesData.userPassword,
+
+      const url = mainURL + PostGetPersonalImagesFromDriveURL;// + "&callback=?";
+
+      var userName = getImagesData.userName;
+      var userPassword = getImagesData.userPassword;
+
+      var xobj = new XMLHttpRequest();
+      // xobj.setRequestHeader("content-type", "text/plain");
+      xobj.onreadystatechange = function () {
+        if (xobj.readyState === 4 && xobj.status === 200) {
+          var responseData = xobj.response;
+          if (responseData !== "") {
+            var options = JSON.parse(responseData);
+            var personalFolderID = options.accessible_items;
+            dispatchGetLocalImagesDataAction(getSubmitImagesDataSuccess(personalFolderID));
+            //AccessDriveImages(personalFolderID);
+          }
+          else {
+            window.alert("User is not available, Sorry"); dispatchGetLocalImagesDataAction(
+              getSubmitImagesDataFailure({ errorMessage: 'Catch Block triggered' }),
+            );
+          }
+        }
+        else {
+          dispatchGetLocalImagesDataAction(
+            getSubmitImagesDataFailure({ errorMessage: 'Catch Block triggered' }),
+          );
         }
       };
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          Accept: '*/*',
-          credentials: 'include', // include, *same-origin, omit
-          redirect: 'follow',
-          'Accept-Encoding': ['gzip', 'deflate', 'br'],
-          Connection: 'keep-alive',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(postData),
-      })
-        .then((response) => {
-          return response.json();
-        })
-        .then((responseJSON) => {
-          if (responseJSON !== null && responseJSON !== undefined) {
-            let folderItems = responseJSON.folder_items.map((item) => {
-              const finalImageURL = `https://drive.google.com/uc?id=${item.id}`;
-              const eachImage = {
-                ...item,
-                displayURL: finalImageURL
-              }
-              return eachImage;
-            });
-            const imagesList = {
-              folder_items: folderItems
-            }
-            dispatchGetLocalImagesDataAction(getSubmitImagesDataSuccess(imagesList));
-          }
-        })
-        .catch((error) => {
-          dispatchGetLocalImagesDataAction(
-            getSubmitImagesDataFailure({
-              errorMessage: 'Catch Block triggered for fetch',
-            }),
-          );
-          ErrorEventLogger(error);
-        });
+
+      var obj = { "method_name": "GetValidUserData", "service_request_data": { "UserName": userName, "Password": userPassword } };
+      var dbParam = JSON.stringify(obj);
+
+      xobj.open("POST", (url), true);
+      xobj.setRequestHeader("content-type", "application/json");
+      xobj.setRequestHeader("referrerPolicy", "no-referrer");
+      xobj.send(dbParam);
+
+
+
+
+      // const url = mainURL + PostGetPersonalImagesFromDriveURL + "&callback=?";
+      // var postData = {
+      //   method_name: "GetValidUserData",
+      //   service_request_data: {
+      //     UserName: getImagesData.userName,
+      //     Password: getImagesData.userPassword,
+      //   }
+      // };
+      // fetch(url, {
+      //   method: 'POST',// *GET, POST, PUT, DELETE, etc.
+      //   body: JSON.stringify(postData),
+      //   headers: {
+      //     // "Access-Control-Allow-Origin": "*",
+      //     // Accept: '*/*',
+      //     // credentials: 'include', // include, *same-origin, omit
+      //     // redirect: 'follow',
+      //     // 'Accept-Encoding': ['gzip', 'deflate', 'br'],
+      //     // Connection: 'keep-alive',
+      //     // 'Content-Type': 'application/json',
+      //     // 'Content-Type': 'application/json;charset=UTF-8',
+      //     // 'Content-Type': 'text/plain;charset=utf-8',
+      //     // 'Content-Type': 'text/plain',
+      //   },
+
+      //   // type: "opaque",
+      //   // mode: 'no-cors', // no-cors, *cors, same-origin
+      //   // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      //   // credentials: 'omit', // include, *same-origin, omit
+      //   // redirect: 'follow', // manual, *follow, error
+      //   referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+
+      //   // crossDomain: true,
+      //   // dataType: "jsonp",
+      // })
+      //   .then((response) => {
+      //     return response.json();
+      //   })
+      //   .then((responseJSON) => {
+      //     if (responseJSON !== null && responseJSON !== undefined) {
+      //       let folderItems = responseJSON.folder_items.map((item) => {
+      //         const finalImageURL = `https://drive.google.com/uc?id=${item.id}`;
+      //         const eachImage = {
+      //           ...item,
+      //           displayURL: finalImageURL
+      //         }
+      //         return eachImage;
+      //       });
+      //       const imagesList = {
+      //         folder_items: folderItems
+      //       }
+      //       dispatchGetLocalImagesDataAction(getSubmitImagesDataSuccess(imagesList));
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     dispatchGetLocalImagesDataAction(
+      //       getSubmitImagesDataFailure({
+      //         errorMessage: 'Catch Block triggered for fetch',
+      //       }),
+      //     );
+      //     ErrorEventLogger(error);
+      //   });
     } catch (error) {
       ErrorEventLogger(error);
       dispatchGetLocalImagesDataAction(
@@ -219,6 +275,8 @@ export function fetchGetNonComplexUrlImagesDataAction(getImagesData) {
       let folderItems = [];
 
       var hasZeroForSingleDigitsNum = getImagesData.isZeroIndexed;
+
+      var count = startIndex - 1;
       for (var i = startIndex; i <= endIndex; i++) {
         var changablePart = i;
         if (hasZeroForSingleDigitsNum === zeroIndexOptions.YES) {
@@ -233,7 +291,47 @@ export function fetchGetNonComplexUrlImagesDataAction(getImagesData) {
           name: "",
           url: finalImageURL,
           displayURL: finalImageURL,
+          totalImages: endIndex,
+          isImageLoadable: true
         }
+
+        // // Working fine but the time delay is more
+        // var fetchValue = await fetch(finalImageURL);
+        // console.log(fetchValue);
+        // let urlStatus = fetchValue.status;
+        // if(urlStatus !== null && urlStatus !== undefined && urlStatus !== "" && (urlStatus !== 404)){
+        //   folderItems.push(eachImage);
+        // }
+        /*
+        // var value = await JSDownloader.checkIsURLValid(eachImage, (obj) => {
+        //   // console.log(obj);
+        //   // folderItems.push(eachImage);
+        //   // if (eachImage.id === eachImage.totalImages) {
+        //   //   const imagesList = {
+        //   //     folder_items: folderItems
+        //   //   }
+        //   //   dispatchGetLocalImagesDataAction(getSubmitImagesDataSuccess(imagesList));
+        //   // }
+        // }, () => { 
+        //   // count ++;
+        //     // dispatchGetLocalImagesDataAction(getSubmitImagesDataSuccess(imagesList));
+        // });
+        // console.log(value);
+
+        // JSDownloader.checkIsURLValid(eachImage, (obj) => {
+        //   console.log(obj);
+        //   folderItems.push(eachImage);
+        //   if (eachImage.id === eachImage.totalImages) {
+        //     const imagesList = {
+        //       folder_items: folderItems
+        //     }
+        //     dispatchGetLocalImagesDataAction(getSubmitImagesDataSuccess(imagesList));
+        //   }
+        // }, () => { 
+        //   // count ++;
+        //     // dispatchGetLocalImagesDataAction(getSubmitImagesDataSuccess(imagesList));
+        // });
+        */
         folderItems.push(eachImage);
       }
       const imagesList = {

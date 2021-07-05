@@ -58,14 +58,22 @@ const GetImagesOptions_Page = (props) => {
       dispatch(fetchSubmitGetImagesDataAction(imageData));
    }
 
-   if(serviceState !== null && serviceState !== undefined && serviceState === "SUCCESS"){
-      history.push({
-         pathname: "/showImageGallery",
-         state: { imagesList: images }
-      });
+   if (serviceState !== null && serviceState !== undefined && serviceState === "SUCCESS") {
+      if (imageData.imageFetchType === imageFetchTypeOptions.NonComplexUrl) {
+         history.push({
+            pathname: "/showImageGalleryFromURL",
+            state: { imagesList: images }
+         });
+      }
+      else {
+         history.push({
+            pathname: "/showImageGallery",
+            state: { imagesList: images }
+         });
+      }
       dispatch(getSubmitImagesDataReset());
    }
-   
+
    const entryOptionsDiv = (optionSelected) => {
       if (optionSelected === imageFetchTypeOptions.LocalImages) {
          return (<div>

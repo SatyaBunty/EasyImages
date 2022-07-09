@@ -107,7 +107,7 @@ const GetImagesOptions_Page = (props) => {
 
    if (serviceState !== null && serviceState !== undefined && serviceState === "SUCCESS") {
       /*if (imageData.imageFetchType === imageFetchTypeOptions.NonComplexUrl)*/
-      if (imageData.serviceSubmitType === imageFetchTypeOptions.NonComplexUrl)  {
+      if (serviceSubmitType === imageFetchTypeOptions.NonComplexUrl)  {
          history.push({
             pathname: "/showImageGalleryFromURL",
             state: { imagesList: images }

@@ -64,15 +64,15 @@ const GetImagesOptions_Page = (props) => {
    const onImageDataOptionsSelected = (event) => {
       let objectKey = (event.target.name);
       // changeImageData({ ...imageData, [objectKey]: event.target.value });
-      if(event.target.id !== null && event.target.id !== undefined){
-         if(event.target.id === imageFetchTypeOptions.SetSentenceCaseGapFill){
+      if (event.target.id !== null && event.target.id !== undefined) {
+         if (event.target.id === imageFetchTypeOptions.SetSentenceCaseGapFill) {
             dispatch(fetchUpdateWordSentenceCaseData({ ...wordSentenceCaseData, [objectKey]: event.target.value }));
          }
-         else{
+         else {
             dispatch(getUpdateImagesData({ ...imageData, [objectKey]: event.target.value }));
          }
       }
-      else{
+      else {
          dispatch(getUpdateImagesData({ ...imageData, [objectKey]: event.target.value }));
       }
    }
@@ -80,24 +80,24 @@ const GetImagesOptions_Page = (props) => {
    const onImageDataEntryValueChaned = (event) => {
       let objectKey = (event.target.name);
       // changeImageData({ ...imageData, [objectKey]: event.target.value });
-      if(event.target.id !== null && event.target.id !== undefined){
-         if(event.target.id === imageFetchTypeOptions.SetSentenceCaseGapFill){
+      if (event.target.id !== null && event.target.id !== undefined) {
+         if (event.target.id === imageFetchTypeOptions.SetSentenceCaseGapFill) {
             dispatch(fetchUpdateWordSentenceCaseData({ ...wordSentenceCaseData, [objectKey]: event.target.value }));
          }
-         else{
+         else {
             dispatch(getUpdateImagesData({ ...imageData, [objectKey]: event.target.value }));
          }
       }
-      else{
+      else {
          dispatch(getUpdateImagesData({ ...imageData, [objectKey]: event.target.value }));
       }
    }
 
    const onSubmitOption = (event) => {
       event.preventDefault();
-      
+
       // console.log(imageData);
-      dispatch(fetchSubmitGetImagesDataAction({serviceSubmitType: serviceSubmitType, imageData: imageData}));
+      dispatch(fetchSubmitGetImagesDataAction({ serviceSubmitType: serviceSubmitType, imageData: imageData }));
       /*
       history.push({
          pathname: "/getAllImagesInURL"
@@ -107,7 +107,7 @@ const GetImagesOptions_Page = (props) => {
 
    if (serviceState !== null && serviceState !== undefined && serviceState === "SUCCESS") {
       /*if (imageData.imageFetchType === imageFetchTypeOptions.NonComplexUrl)*/
-      if (serviceSubmitType === imageFetchTypeOptions.NonComplexUrl)  {
+      if (serviceSubmitType === imageFetchTypeOptions.NonComplexUrl) {
          history.push({
             pathname: "/showImageGalleryFromURL",
             state: { imagesList: images }
@@ -148,7 +148,7 @@ const GetImagesOptions_Page = (props) => {
          </div>);
       } else if (optionSelected === imageFetchTypeOptions.SetSentenceCaseGapFill) {
          return (<div>
-            <Link href={wordSentenceCaseData.updatedURL}/>
+            <Link href={wordSentenceCaseData.updatedURL} />
             <text>{wordSentenceCaseData.updatedURL}</text>
             <Picker name="sentenceCaseType" id={imageFetchTypeOptions.SetSentenceCaseGapFill} labelText="Select a sentence case type" onChange={onImageDataOptionsSelected}>
                <option value={SentenceCaseOptions.NONE}>{SentenceCaseOptions.NONE}</option>
@@ -195,7 +195,13 @@ const GetImagesOptions_Page = (props) => {
                      {/* {entryOptionsDiv(selectedOption)} */}
                      {/* {entryOptionsDiv(imageData.imageFetchType)} */}
                      {entryOptionsDiv(serviceSubmitType)}
-                     <CustomButton isFullButton={true} title="Submit" onClick={onSubmitOption} />
+                     {
+                        (serviceSubmitType === imageFetchTypeOptions.NonComplexUrl ||
+                           serviceSubmitType === imageFetchTypeOptions.PersonalImages ||
+                           serviceSubmitType === imageFetchTypeOptions.LocalImages) ?
+                           (<CustomButton isFullButton={true} title="Submit" onClick={onSubmitOption} />) :
+                           (<></>)
+                     }
                   </FormData>
                </> :
                <></>

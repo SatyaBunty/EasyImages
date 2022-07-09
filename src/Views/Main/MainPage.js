@@ -7,6 +7,7 @@ import GetImagesOptionsPage from "../Images/GetImages/Step1/GetImagesOptionsPage
 import ShowImageAsGallery from "../Images/GetImages/Step2/ShowImageAsGallery";
 import ShowImageAsGalleryFromURL from "../Images/GetImages/Step2/ShowImageAsGalleryFromURL";
 import LoginPage from "../User/Login/LoginPage";
+import GetAllImagesInURL from "./../Images/GetImages/Step2/GetAllImagesInURL"
 import "./../ViewBody.css";
 
 const MainPage = (props) => {
@@ -24,6 +25,7 @@ const MainPage = (props) => {
       <Route path="/getImages"><GetImagesOptionsPage /></Route>
       <Route path="/showImageGallery"><ShowImageAsGallery /></Route>
       <Route path="/showImageGalleryFromURL"><ShowImageAsGalleryFromURL /></Route>
+      <Route path="/getAllImagesInURL"><GetAllImagesInURL /></Route>
 
       <Route path="/login"><LoginPage /></Route>
       {/* <HomePage /> */}

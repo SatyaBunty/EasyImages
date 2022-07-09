@@ -12,6 +12,8 @@ import {
   GET_SUBMIT_IMAGES_DATA_SUCCESS,
   GET_SUBMIT_IMAGES_DATA_FAILURE,
   GET_SUBMIT_IMAGES_DATA_RESET,
+  GET_UPDATE_SUBMIT_TYPE_DATA,
+  GET_UPDATE_WORD_SENTENCE_CASE_DATA,
 } from './GetImagesActions';
 
 const initialState = {
@@ -26,6 +28,15 @@ const initialState = {
     userName: "",
     userPassword: "",
   },
+  wordSentenceCaseData: {
+    updatedURL: "",
+    sentenceCaseType: "",
+    imageURL: "",
+    modifyText: "",
+    shallSplitText: "",
+    splitText: "",
+  },
+  serviceSubmitType: "",
   images: null,
   serviceState: INACTIVE,
   loaderVisibility: false,
@@ -41,6 +52,12 @@ const GetImagesReducer = (state = initialState, action) => {
     message: '',
   }
   switch (action.type) {
+    case GET_UPDATE_SUBMIT_TYPE_DATA:
+      state = { ...state, serviceSubmitType: action.payload };
+    break;
+    case GET_UPDATE_WORD_SENTENCE_CASE_DATA:
+      state = { ...state, wordSentenceCaseData: action.payload };
+      break;
     case GET_UPDATE_IMAGES_DATA:
       state = { ...state, imageData: action.payload };
       break;

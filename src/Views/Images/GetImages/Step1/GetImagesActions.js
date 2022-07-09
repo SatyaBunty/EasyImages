@@ -1,4 +1,4 @@
-import { imageFetchTypeOptions, zeroIndexOptions } from "../../../../Constants/EnumConstants";
+import { imageFetchTypeOptions, SentenceCaseOptions, zeroIndexOptions } from "../../../../Constants/EnumConstants";
 import { JSDownloader } from "../../../../Helpers/JSDownloader";
 import { mainURL, PostGetPersonalImagesFromDriveURL } from "./../../../../Constants/URLConstants";
 import { ErrorEventLogger } from './../../../../Helpers/EventLogger';
@@ -9,6 +9,9 @@ import { ErrorEventLogger } from './../../../../Helpers/EventLogger';
 //   IS_FROM_NON_COMPLEX_URL: "IS_FROM_NON_COMPLEX_URL"
 // });
 
+
+export const GET_UPDATE_SUBMIT_TYPE_DATA = 'GET_UPDATE_SUBMIT_TYPE_DATA';
+export const GET_UPDATE_WORD_SENTENCE_CASE_DATA = 'GET_UPDATE_WORD_SENTENCE_CASE_DATA';
 export const GET_IMAGES_DATA = 'GET_IMAGES_DATA';
 export const GET_UPDATE_IMAGES_DATA = 'GET_UPDATE_IMAGES_DATA';
 export const GET_SUBMIT_IMAGES_DATA = 'GET_SUBMIT_IMAGES_DATA';
@@ -18,9 +21,15 @@ export const GET_SUBMIT_IMAGES_DATA_FAILURE =
   'GET_SUBMIT_IMAGES_DATA_FAILURE';
 export const GET_SUBMIT_IMAGES_DATA_RESET = 'GET_SUBMIT_IMAGES_DATA_RESET';
 
-export const getImagesData = (imageData) => ({ type: GET_IMAGES_DATA, payload: imageData });
+
+
+export const getUpdategetSubmitTypeData = (getSubmitTypeData) => ({ type: GET_UPDATE_SUBMIT_TYPE_DATA, payload: getSubmitTypeData });
+
+export const getUpdateWordSentenceCaseData = (getWordSentenceData) => ({ type: GET_UPDATE_WORD_SENTENCE_CASE_DATA, payload: getWordSentenceData });
 
 export const getUpdateImagesData = (getImagesData) => ({ type: GET_UPDATE_IMAGES_DATA, payload: getImagesData });
+
+export const getImagesData = (imageData) => ({ type: GET_IMAGES_DATA, payload: imageData });
 
 export const getSubmitImagesData = () => ({ type: GET_SUBMIT_IMAGES_DATA });
 
@@ -36,18 +45,83 @@ export const getSubmitImagesDataReset = () => ({
   type: GET_SUBMIT_IMAGES_DATA_RESET,
 });
 
+export function fetchUpdateWordSentenceCaseData(getWordSentenceData) {
+  return async (dispatchUpdateWordSentenceCaseData) => {
+    try {
+      if (getWordSentenceData !== null && getWordSentenceData !== undefined && getWordSentenceData !== "") {
+        getWordSentenceData.updatedURL = "";
+        const splitText = getWordSentenceData.splitText;
+        var _modifyText = getWordSentenceData.modifyText.split(splitText);
+        var updatedModifyText = "";
+        const gapText = " ";
+        if (getWordSentenceData.gapText !== null && getWordSentenceData.gapText !== undefined) {
+          gapText = getWordSentenceData.gapText;
+        }
 
+        if (getWordSentenceData.shallSplitText !== null && getWordSentenceData.shallSplitText !== undefined && getWordSentenceData.shallSplitText === zeroIndexOptions.YES) {
+          if (_modifyText !== null && _modifyText !== undefined) {
+            _modifyText.forEach((item) => {
+              item.toString();
+              switch (getWordSentenceData.sentenceCaseType) {
+                case SentenceCaseOptions.SMALL:
+                  updatedModifyText += item.toLowerCase() + gapText;
+                  break;
+                case SentenceCaseOptions.CAPS:
+                  updatedModifyText += item.toUpperCase() + gapText;
+                  break;
+                case SentenceCaseOptions.PASCALCASE:
+                  updatedModifyText += item.charAt(0).toUpperCase() + item.substr(1).toLowerCase() + gapText;
+                  break;
+                case SentenceCaseOptions.CAMELCASE:
+                  updatedModifyText += item.toLowerCase() + gapText;
+                  break;
+                case SentenceCaseOptions.SENTENCECASE:
+                  updatedModifyText += item.toLowerCase() + gapText;
+                  break;
+                default:
+                  updatedModifyText += item + gapText;
+                  break;
+              }
+            })
+          }
+        }
+        else {
+          updatedModifyText += getWordSentenceData.modifyText.replace(splitText, gapText) + gapText;
+        }
+
+        if (updatedModifyText.includes(gapText)) {
+          updatedModifyText = updatedModifyText.substring(0, updatedModifyText.length - gapText.length);
+        }
+
+        let updatedValue = `${getWordSentenceData.imageURL}${updatedModifyText}`;
+        dispatchUpdateWordSentenceCaseData(getUpdateWordSentenceCaseData({ ...getWordSentenceData, updatedURL: updatedValue }));
+      }
+      else {
+        // dispatchUpdateWordSentenceCaseData(fetchGetLocalImagesDataAction());
+      }
+    } catch (error) {
+      ErrorEventLogger(error);
+      // dispatchUpdateWordSentenceCaseData(
+      //   getSubmitImagesDataFailure({ errorMessage: 'Catch Block triggered' }),
+      // );
+    }
+  };
+}
 
 export function fetchSubmitGetImagesDataAction(getImagesData) {
   return async (dispatchSubmitGetImagesDataAction) => {
     try {
-      if (getImagesData !== null && getImagesData !== undefined && getImagesData !== "") {
-        switch (getImagesData.imageFetchType) {
+      if (getImagesData !== null && getImagesData !== undefined && getImagesData !== "" &&
+      getImagesData.imageData !== null && getImagesData.imageData !== undefined && getImagesData.imageData !== "") {
+        // switch (getImagesData.imageFetchType) {
+        switch (getImagesData.serviceSubmitType){
           case imageFetchTypeOptions.PersonalImages:
-            dispatchSubmitGetImagesDataAction(fetchGetPersonalImagesDataAction(getImagesData));
+            dispatchSubmitGetImagesDataAction(fetchGetPersonalImagesDataAction(getImagesData.imageData));
             break;
           case imageFetchTypeOptions.NonComplexUrl:
-            dispatchSubmitGetImagesDataAction(fetchGetNonComplexUrlImagesDataAction(getImagesData));
+            dispatchSubmitGetImagesDataAction(fetchGetNonComplexUrlImagesDataAction(getImagesData.imageData));
+            break;
+          case imageFetchTypeOptions.SetSentenceCaseGapFill:
             break;
           default:
             dispatchSubmitGetImagesDataAction(fetchGetLocalImagesDataAction());

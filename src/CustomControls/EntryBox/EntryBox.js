@@ -8,6 +8,7 @@ const EntryBox = (props) => {
         hintText,
         labelText,
         type,
+        formName,
         // isRequired,
         onChange,
     } = props;

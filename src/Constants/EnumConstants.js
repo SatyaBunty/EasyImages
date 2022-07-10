@@ -1,5 +1,5 @@
 export const imageFetchTypeOptions = Object.freeze({
-   unSelected: "null",
+   unSelected: "none",
    LocalImages: "Access Local Images",
    PersonalImages: "Access Personal Images",
    NonComplexUrl: "I have a non Complex URL",

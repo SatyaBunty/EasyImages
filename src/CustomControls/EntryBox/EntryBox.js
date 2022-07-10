@@ -8,13 +8,18 @@ const EntryBox = (props) => {
         hintText,
         labelText,
         type,
+        value,
         formName,
         // isRequired,
         onChange,
     } = props;
-    let _type = "text"
+    let _type = "text";
     if(_type !== null && _type !== undefined && _type !== "" && _type !== " "){
         _type = type;
+    }
+    let _value= "";
+    if(value !== null && value !== undefined && value !== ""){
+        _value = value;
     }
       return (
         <div className="inputDiv">
@@ -25,7 +30,7 @@ const EntryBox = (props) => {
         </div>
         <div className="inputTextPassDiv">
             {/* <tr> */}
-                <input type={_type} id={id} name={name} placeholder={hintText} onChange={onChange} className="entries"/>
+                <input type={_type} id={id} name={name} placeholder={hintText} value={_value} onChange={onChange} className="entries"/>
             {/* </tr> */}
         </div>
     {/* <div className="brHeight" ></div> */}

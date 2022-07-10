@@ -8,10 +8,18 @@ const Picker = (props) => {
         // hintText,
         labelText,
         formName,
+        selectedValue,
+        options,
         // isRequired,
         children,
         onChange,
     } = props;
+    const listOfOptions = options;
+    const selectOptions = (option) => {
+        let _selected = (option===selectedValue);
+        return(<option value={option} selected={_selected} >{option}</option>);
+     }
+
       return (
         <div className="inputDiv">
         <div className="inputLabelDiv">
@@ -23,8 +31,11 @@ const Picker = (props) => {
             {/* <tr> */}
                 {/* <input type="text" id={id} name={name} placeholder={hintText} onChange={onChange} name="itemId" className="entries" isRequired={isRequired}/> */}
             {/* </tr> */}
-            <select id={id} name={name} onChange={onChange} className="entries">
+            {/* <select id={id} name={name} onChange={onChange} className="entries">
                 {children}
+            </select> */}
+            <select id={id} name={name} onChange={onChange} className="entries">
+                {(listOfOptions !== null && listOfOptions !== undefined && listOfOptions !== "") ? listOfOptions.map(item => selectOptions(item)): children}
             </select>
         </div>
     {/* <div className="brHeight" ></div> */}

@@ -1,4 +1,4 @@
-import { imageFetchTypeOptions, SentenceCaseOptions, zeroIndexOptions } from "../../../../Constants/EnumConstants";
+import { imageFetchTypeOptions, SentenceCaseOptions, yesNoOptions } from "../../../../Constants/EnumConstants";
 import { JSDownloader } from "../../../../Helpers/JSDownloader";
 import { mainURL, PostGetPersonalImagesFromDriveURL } from "./../../../../Constants/URLConstants";
 import { ErrorEventLogger } from './../../../../Helpers/EventLogger';
@@ -50,15 +50,15 @@ export function fetchUpdateWordSentenceCaseData(getWordSentenceData) {
     try {
       if (getWordSentenceData !== null && getWordSentenceData !== undefined && getWordSentenceData !== "") {
         getWordSentenceData.updatedURL = "";
-        const splitText = getWordSentenceData.splitText;
-        var _modifyText = getWordSentenceData.modifyText.split(splitText);
-        var updatedModifyText = "";
-        const gapText = " ";
+        let splitText = getWordSentenceData.splitText;
+        let _modifyText = getWordSentenceData.modifyText.split(splitText);
+        let updatedModifyText = "";
+        let gapText = " ";
         if (getWordSentenceData.gapText !== null && getWordSentenceData.gapText !== undefined) {
           gapText = getWordSentenceData.gapText;
         }
 
-        if (getWordSentenceData.shallSplitText !== null && getWordSentenceData.shallSplitText !== undefined && getWordSentenceData.shallSplitText === zeroIndexOptions.YES) {
+        if (getWordSentenceData.shallSplitText !== null && getWordSentenceData.shallSplitText !== undefined && getWordSentenceData.shallSplitText === yesNoOptions.YES) {
           if (_modifyText !== null && _modifyText !== undefined) {
             _modifyText.forEach((item) => {
               item.toString();
@@ -86,7 +86,7 @@ export function fetchUpdateWordSentenceCaseData(getWordSentenceData) {
           }
         }
         else {
-          updatedModifyText += getWordSentenceData.modifyText.replace(splitText, gapText) + gapText;
+          updatedModifyText += getWordSentenceData.modifyText.replaceAll(splitText, gapText) + gapText;
         }
 
         if (updatedModifyText.includes(gapText)) {
@@ -353,7 +353,7 @@ export function fetchGetNonComplexUrlImagesDataAction(getImagesData) {
       var count = startIndex - 1;
       for (var i = startIndex; i <= endIndex; i++) {
         var changablePart = i;
-        if (hasZeroForSingleDigitsNum === zeroIndexOptions.YES) {
+        if (hasZeroForSingleDigitsNum === yesNoOptions.YES) {
           if (i < 10) {
             changablePart = "0" + i;
           }

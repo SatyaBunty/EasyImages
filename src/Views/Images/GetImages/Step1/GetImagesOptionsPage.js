@@ -8,16 +8,17 @@ import Header from '../../../../CustomControls/Header_Body/Header';
 import PageBody from '../../../../CustomControls/Header_Body/PageBody';
 import Picker from '../../../../CustomControls/Picker/Picker';
 import "./GetImagesOptionsPage.css";
-import { imageFetchTypeOptions, imageTypeOptions, zeroIndexOptions, SentenceCaseOptions } from './../../../../Constants/EnumConstants';
+import { imageFetchTypeOptions, imageTypeOptions, yesNoOptions, SentenceCaseOptions } from './../../../../Constants/EnumConstants';
 import { getUpdategetSubmitTypeData, getUpdateImagesData, fetchUpdateWordSentenceCaseData, fetchSubmitGetImagesDataAction, getSubmitImagesDataReset } from './GetImagesActions';
 import { SUCCESS } from '../../../../Constants/URLConstants';
 import { Link, useHistory } from 'react-router-dom';
+import AHref, { openURLOptions } from '../../../../CustomControls/AHref/AHref';
 
 const GetImagesOptions_Page = (props) => {
    // const [selectedOption, changeSelectedOption] = useState(imageFetchTypeOptions.unSelected);
    // const [imageData, changeImageData] = useState({
    //    imageType: imageTypeOptions.JPG,
-   //    isZeroIndexed: zeroIndexOptions.YES,
+   //    isZeroIndexed: yesNoOptions.YES,
    //    imageURL: "",
    //    startIndex: "0",
    //    endIndex: "100",
@@ -138,19 +139,18 @@ const GetImagesOptions_Page = (props) => {
             <EntryBox name="imageURL" labelText="Add URL by removing the number and image type (eg.:www.img01.jpg --> www.img)" hintText="Enter URL" value={imageData.imageURL} onChange={onImageDataEntryValueChaned} isRequired={true} />
             <EntryBox name="startIndex" labelText="Enter start number of number of images needed" hintText="Enter Start Index" value={imageData.startIndex} onChange={onImageDataEntryValueChaned} isRequired={true} />
             <EntryBox name="endIndex" labelText="Enter last number of number of images needed" hintText="Enter Last Index" value={imageData.endIndex} onChange={onImageDataEntryValueChaned} isRequired={true} />
-            <Picker name="isZeroIndexed" labelText="Select does the index of images need 0 at front as 01, 02" options={Object.values(zeroIndexOptions)} selectedValue={imageData.isZeroIndexed} onChange={onImageDataOptionsSelected}>
+            <Picker name="isZeroIndexed" labelText="Select does the index of images need 0 at front as 01, 02" options={Object.values(yesNoOptions)} selectedValue={imageData.isZeroIndexed} onChange={onImageDataOptionsSelected}>
             </Picker>
          </div>);
       } else if (optionSelected === imageFetchTypeOptions.SetSentenceCaseGapFill) {
          return (<div>
-            <Link href={wordSentenceCaseData.updatedURL} />
-            <text>{wordSentenceCaseData.updatedURL}</text>
+            <AHref href={wordSentenceCaseData.updatedURL} target={openURLOptions.BLANK}/>
             <Picker name="sentenceCaseType" id={imageFetchTypeOptions.SetSentenceCaseGapFill} labelText="Select a sentence case type" options={Object.values(SentenceCaseOptions)} selectedValue={wordSentenceCaseData.sentenceCaseType} onChange={onImageDataOptionsSelected}>
             </Picker>
             <EntryBox name="imageURL" id={imageFetchTypeOptions.SetSentenceCaseGapFill} labelText="Add URL by removing the text to be modified(eg.:www.img01.jpg --> www.img)" hintText="Enter URL" value={wordSentenceCaseData.imageURL} onChange={onImageDataEntryValueChaned} isRequired={true} />
             <EntryBox name="modifyText" id={imageFetchTypeOptions.SetSentenceCaseGapFill} labelText="Enter the text to be modified" value={wordSentenceCaseData.modifyText} onChange={onImageDataEntryValueChaned} isRequired={true} />
             <EntryBox name="splitText" id={imageFetchTypeOptions.SetSentenceCaseGapFill} labelText="Enter the text at split to be done" value={wordSentenceCaseData.splitText} onChange={onImageDataEntryValueChaned} isRequired={true} />
-            <Picker name="shallSplitText" id={imageFetchTypeOptions.SetSentenceCaseGapFill} labelText="Select does the text to be split" options={Object.values(zeroIndexOptions)} selectedValue={wordSentenceCaseData.shallSplitText} onChange={onImageDataOptionsSelected}>
+            <Picker name="shallSplitText" id={imageFetchTypeOptions.SetSentenceCaseGapFill} labelText="Select does the text to be split" options={Object.values(yesNoOptions)} selectedValue={wordSentenceCaseData.shallSplitText} onChange={onImageDataOptionsSelected}>
             </Picker>
             <EntryBox name="gapText" id={imageFetchTypeOptions.SetSentenceCaseGapFill} labelText="Enter the text to be filled between gaps" value={wordSentenceCaseData.gapText} onChange={onImageDataEntryValueChaned} isRequired={true} />
          </div>);

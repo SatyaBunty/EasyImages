@@ -1,4 +1,4 @@
-import { imageTypeOptions, zeroIndexOptions } from '../../../../Constants/EnumConstants';
+import { imageTypeOptions, yesNoOptions } from '../../../../Constants/EnumConstants';
 import {
   FAILURE,
   INACTIVE,
@@ -20,7 +20,7 @@ const initialState = {
   imageData: {
     imageFetchType: "",
     imageType: imageTypeOptions.JPG,
-    isZeroIndexed: zeroIndexOptions.YES,
+    isZeroIndexed: yesNoOptions.YES,
     imageURL: "",
     startIndex: "0",
     endIndex: "100",
@@ -33,7 +33,7 @@ const initialState = {
     sentenceCaseType: "",
     imageURL: "",
     modifyText: "",
-    shallSplitText: "",
+    shallSplitText: yesNoOptions.YES,
     splitText: "",
   },
   serviceSubmitType: "",

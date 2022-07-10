@@ -10,7 +10,7 @@ export const imageTypeOptions = Object.freeze({
    JPEG: "jpeg",
    PNG: "png"
 });
-export const zeroIndexOptions = Object.freeze({
+export const yesNoOptions = Object.freeze({
    YES: "yes",
    NO: "no",
 });

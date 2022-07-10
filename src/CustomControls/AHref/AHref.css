@@ -1,0 +1,32 @@
+.submitButton
+{
+    width: Calc(100% - 20px);
+    height: 100%;
+    background-color: white;
+    border: none;
+    color: forestgreen;
+    padding: 0;/*16px 32px;*/
+    text-decoration: none;
+    /* margin: 0;4px 2px; */
+    cursor: pointer;
+    border-style: solid;
+    border-width: 1px;
+    border-color: green;
+    border-radius: 5px;
+    outline: none;/*to remove glowing border on focus/click*/
+    /* height: 15px; */
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.inputButtonDiv
+{
+    width: auto;
+    height: auto;
+    min-height: 5px;
+    /* display: inline-block; */
+    /* clear: both; */
+    background-color: transparent;
+    padding: 0%;
+}

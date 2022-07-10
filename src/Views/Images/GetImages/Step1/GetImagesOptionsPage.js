@@ -13,6 +13,7 @@ import { getUpdategetSubmitTypeData, getUpdateImagesData, fetchUpdateWordSentenc
 import { SUCCESS } from '../../../../Constants/URLConstants';
 import { Link, useHistory } from 'react-router-dom';
 import AHref, { openURLOptions } from '../../../../CustomControls/AHref/AHref';
+import Frames from '../../../../CustomControls/Frames/Frames';
 
 const GetImagesOptions_Page = (props) => {
    // const [selectedOption, changeSelectedOption] = useState(imageFetchTypeOptions.unSelected);
@@ -106,6 +107,19 @@ const GetImagesOptions_Page = (props) => {
       */
    }
 
+   const onFrameDataLoaded = (event) => {
+      event.preventDefault();
+      console.log(event);
+      let X = event.target.contentWindow;
+      //let y =  X.body.innerHTML;
+      //let X2 = X.body;
+      let data1 = event.target.contentWindow.innerHTML;
+      // let data2 = event.target.contentWindow.document.body.innerHTML;
+      // let data3 = event.target.contentWindow.getElementsByTagName("body");
+      let data = data1;
+      console.log(data);
+   }
+
    if (serviceState !== null && serviceState !== undefined && serviceState === "SUCCESS") {
       /*if (imageData.imageFetchType === imageFetchTypeOptions.NonComplexUrl)*/
       if (serviceSubmitType === imageFetchTypeOptions.NonComplexUrl) {
@@ -144,7 +158,7 @@ const GetImagesOptions_Page = (props) => {
          </div>);
       } else if (optionSelected === imageFetchTypeOptions.SetSentenceCaseGapFill) {
          return (<div>
-            <AHref href={wordSentenceCaseData.updatedURL} target={openURLOptions.BLANK}/>
+            <AHref href={wordSentenceCaseData.updatedURL} target={"frame-name"}/>
             <Picker name="sentenceCaseType" id={imageFetchTypeOptions.SetSentenceCaseGapFill} labelText="Select a sentence case type" options={Object.values(SentenceCaseOptions)} selectedValue={wordSentenceCaseData.sentenceCaseType} onChange={onImageDataOptionsSelected}>
             </Picker>
             <EntryBox name="imageURL" id={imageFetchTypeOptions.SetSentenceCaseGapFill} labelText="Add URL by removing the text to be modified(eg.:www.img01.jpg --> www.img)" hintText="Enter URL" value={wordSentenceCaseData.imageURL} onChange={onImageDataEntryValueChaned} isRequired={true} />
@@ -153,6 +167,7 @@ const GetImagesOptions_Page = (props) => {
             <Picker name="shallSplitText" id={imageFetchTypeOptions.SetSentenceCaseGapFill} labelText="Select does the text to be split" options={Object.values(yesNoOptions)} selectedValue={wordSentenceCaseData.shallSplitText} onChange={onImageDataOptionsSelected}>
             </Picker>
             <EntryBox name="gapText" id={imageFetchTypeOptions.SetSentenceCaseGapFill} labelText="Enter the text to be filled between gaps" value={wordSentenceCaseData.gapText} onChange={onImageDataEntryValueChaned} isRequired={true} />
+            <Frames src="" name="frame-name" style={{width: "100%", height: "150px"}} onLoad={onFrameDataLoaded} />
          </div>);
       } else {
          return (<div></div>);

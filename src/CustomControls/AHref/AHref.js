@@ -37,9 +37,9 @@ const AHref = (props) => {
         _buttonHolderclassName = "inputButtonDiv"
     }
     var _className = className;
-    if (_className !== null && _className !== undefined && _className !== "") { } else {
-        _className = "submitButton"
-    }
+    // if (_className !== null && _className !== undefined && _className !== "") { } else {
+    //     _className = "submitButton"
+    // }
 
     return (
         <a className={_className} id={id} href={href} target={_target} rel="noreferrer">{_title}</a>

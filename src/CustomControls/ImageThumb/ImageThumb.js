@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import CustomButton from './../../../../CustomControls/CustomButton/CustomButton';
-import "./ShowImageAsGallery.css";
+import CustomButton from '../CustomButton/CustomButton';
+import "./ImageThumb.css";
 
 const ImageThumb = (props) => {
     const {
         item,
-        onClick
+        onClick,
+        checkAndLoad
     } = props;
 
     const [imageItem, setImageItem] = useState(null);
 
     useEffect(() => {
+        if(checkAndLoad === true){
         if (item !== null && item !== undefined && item !== "") {
             if (item.displayURL !== null && item !== undefined && item !== "") {
 
@@ -34,7 +36,11 @@ const ImageThumb = (props) => {
                 xhttp.send();
             }
         }
-    }, [item]);
+    }
+    else{
+        setImageItem(item);
+    }
+    }, [item, checkAndLoad]);
 
     return (
         <>
